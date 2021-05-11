@@ -15,8 +15,8 @@ export default () => (
 const img = StyleSheet.create ({
   logo: {
     width: "100%",
-    height: 100, 
+    height: 85, 
     flexGrow: 1,
-    resizeMode: 'contain',
+    resizeMode: 'contain'
   }
 })
