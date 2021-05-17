@@ -1,14 +1,15 @@
 import React from 'react'
 import { Container, TabsContainer, TabItem, TabText  } from './style'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import Livro from '../screens/livros'
 
-export default function Tab() {
+export default function Tab(props) {
 return(
     <Container>
         <TabsContainer>
             <TabItem>
                 <Icon name="person" size={24} color="#FFF"/>
-                <TabText>Meu Perfil</TabText>
+                <TabText  >Meu Perfil</TabText>
             </TabItem>
             <TabItem>
                 <Icon name="auto-stories" size={24} color="#FFF"/>
