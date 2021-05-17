@@ -1,15 +1,16 @@
   import { StyleSheet} from 'react-native'
+import { theme } from './PageStyle'
 
-  export default StyleSheet.create({
-          App: {
-              flexGrow: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              padding: 20,
-              padding: 20,
-              backgroundColor: "#BCBDBE",
-      }
-    })
+  // export default StyleSheet.create({
+  //         App: {
+  //             flexGrow: 1,
+  //             justifyContent: "center",
+  //             alignItems: "center",
+  //             padding: 20,
+  //             padding: 20,
+  //             backgroundColor: "#002244",
+  //     }
+  //   })
 
     export const loginStyle = StyleSheet.create({
       content: {
@@ -18,10 +19,46 @@
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "row",
-        backgroundColor: "#BCBDBE",
+        backgroundColor: "#002244",
 
       },
       view:{
         width:"80%",
+      },
+      avatar: {
+        top: -37,
+        left: "35%",
+        display:"flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "#002244",
+        backgroundColor: "#D3D3D3"
+      },
+
+      cardButton: {
+        margin: 2,
+        backgroundColor: "#002244"
+        
+      },
+      cardLabel: {
+        margin: 4,
+        color: "#FFFFFF"
+      },
+
+    })
+
+    export const telaCadastro = StyleSheet.create({
+      pagcad: {
+        padding: 30,
+        paddingTop: 0
+      },
+      
+      icon: {
+        color: theme.colors.primary
+      },
+      button: {
+        margin: 15,
+        marginLeft: 0,
+        marginRight: 0,
       }
     })

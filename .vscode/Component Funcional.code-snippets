@@ -4,8 +4,8 @@
 		"scope": "javascript,typescript",
 		"prefix": "compfunc",
 		"body": [
-			"import React from 'recat'",
-			"import { Text} from 'recat-native'",
+			"import React from 'react'",
+			"import { Text} from 'react-native'",
 			"import Estilo from './components/estilo'",
 			"",
 			"export default props =>{",

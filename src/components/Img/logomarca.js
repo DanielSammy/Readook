@@ -14,6 +14,7 @@ export default () => (
 )
 const img = StyleSheet.create ({
   logo: {
+    alignItems: "center",
     width: "100%",
     height: 85, 
     flexGrow: 1,
