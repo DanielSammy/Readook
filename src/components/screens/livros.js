@@ -12,7 +12,9 @@ export default function Livro(){
 
   return (
     <View style={styles.container}>
-    <SubMenu/>
+    <SubMenu
+    style={{ bottom: 80, right: 60}}
+    />
     </View>
   )
 }
