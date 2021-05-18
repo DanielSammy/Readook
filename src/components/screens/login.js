@@ -3,9 +3,6 @@ import {  SafeAreaView, View } from 'react-native'
 import { Avatar, Card, TextInput, Button, } from 'react-native-paper'
 import { loginStyle, telaCadastro } from '../Estilo'
 import { theme } from '../PageStyle'
-import Cadastro from './cadastro'
-import Livros from './livros'
-import Home from './Principal'
 
 export const LoginScreen = (props) =>{
 

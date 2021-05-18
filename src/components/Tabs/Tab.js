@@ -1,16 +1,22 @@
 import React from 'react'
 import { Container, TabsContainer, TabItem, TabText  } from './style'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import Livro from '../screens/livros'
+import Livros from '../screens/Livros'
+import { useNavigation } from '@react-navigation/native';
 
-export default function Tab(props) {
+
+
+
+export const Tab = () => {
+const navigation = useNavigation();
+
 return(
     <Container>
-        <TabsContainer>
-            <TabItem>
-                <Icon name="person" size={24} color="#FFF"/>
-                <TabText  >Meu Perfil</TabText>
-            </TabItem>
+        <TabsContainer>    
+        <TabItem>
+        <Icon name="person" size={24} color="#FFF"/>
+        <TabText  onPress={()=>navigation.navigate('Livros')}>Meu Perfil</TabText>
+        </TabItem>
             <TabItem>
                 <Icon name="auto-stories" size={24} color="#FFF"/>
                 <TabText>Biblioteca</TabText>
@@ -32,3 +38,4 @@ return(
 )
 
 }
+
