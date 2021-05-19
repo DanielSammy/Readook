@@ -1,8 +1,9 @@
+import { View } from 'react-native';
 import styled from 'styled-components/native'
 
 export const Container = styled.View`
     height: 100px;
-    margin-top: 20px;
+    margin-top: 0px;
 `;
 
 export const TabsContainer = styled.ScrollView.attrs({
@@ -25,3 +26,13 @@ export const TabText = styled.Text`
     font-size: 13px;
     color: #FFF;
 `;
+
+// export const TabButton = styled.Text`
+//     width: 100px;
+//     height: 100px;
+//     background: rgba(255, 255, 255, 0.2);
+//     border-radius: 20px;
+//     margin-left: px;
+//     padding: 10px;
+//     justify-content: center;
+// `;

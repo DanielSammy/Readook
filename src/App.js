@@ -15,7 +15,7 @@ function MyStack() {
     <Stack.Screen name="login" component={LoginScreen} options ={{headerTransparent: true, title:''}}/>
     <Stack.Screen name="cadastro" component={Cadastro}/>
     <Stack.Screen name="Principal" component={Home} options={{headerTransparent: true, title:''}}/>
-    <Stack.Screen name="Livros" component={Livro} options={{}}/>
+    <Stack.Screen name="Livros" component={Livro}/>
       
     </Stack.Navigator>
   );
@@ -29,25 +29,3 @@ export default function App() {
       </NavigationContainer>
     );
   }
-
-
-// return (
-//     <Container>
-//         <Header/>          
-//         <Tab/>
-//     </Container>
-//     )
-
-//     const Stack = createStackNavigator()
-
-//     return(
-            
-//           <NavigationContainer>
-//               <Stack.Navigator>
-//               <Stack.Screen name="login" component={LoginScreen}/>
-//               <Stack.Screen name="cadastro" component={Cadastro}/>
-//               <Stack.Screen name="livros" component={Livro}/>
-//               </Stack.Navigator>
-//           </NavigationContainer>
-//        )
-// }

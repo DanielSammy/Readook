@@ -1,7 +1,6 @@
 import React from 'react'
 import { Container, Top, Logo, Title } from './style'
 import logo from '../Img/logo1x.png'
-// import Icon from 'react-native-vector-icons/MaterialIcons'
 
 export default function Header() {
 return(

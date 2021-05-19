@@ -3,8 +3,6 @@ import {  SafeAreaView, ScrollView, View} from 'react-native'
 import {Button, Appbar, TextInput} from 'react-native-paper'
 import { telaCadastro } from '../Estilo'
 import { theme } from '../PageStyle'
-// import { Appbar } from 'react-native-paper'
-// import Estilo from './components/estilo'
 
 export const Cadastro = () => { 
        return (

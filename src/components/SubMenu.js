@@ -9,7 +9,7 @@ export default function FabButon (props) {
     const [ valor, setValor ] = useState(0);
     const animation = new Animated.Value(valor)
 
-    function MudaValor() {
+    function AlterValue() {
         if (valor == 0) {
             setValor(1)
         } else {
@@ -23,9 +23,9 @@ export default function FabButon (props) {
         Animated.spring(animation, {
             toValue,
             friction: 6,
-            useNativeDriver: true
+            useNativeDriver: true,
         }).start();
-        MudaValor()
+        AlterValue()
     }
 
     {
@@ -61,6 +61,8 @@ export default function FabButon (props) {
                     rotate: animation.interpolate({
                         inputRange: [0,1],
                         outputRange: ['0deg', '45deg'],
+                        
+                        
                     })
                 }
             ]
