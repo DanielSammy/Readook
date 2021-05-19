@@ -32,7 +32,7 @@ import { theme } from './PageStyle'
         justifyContent: "center",
         alignItems: "center",
         color: "#002244",
-        backgroundColor: "#D3D3D3"
+        backgroundColor: "#E8E8E8",
       },
 
       cardButton: {

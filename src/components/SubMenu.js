@@ -1,66 +1,93 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Animated } from 'react-native';
-import {AntDesign, Entypo} from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons'
 // import { Container } from './styles';
 
 // <AntDesign name="plus" size={24} color="#4F8EF7" />
 
-export default class FabButton extends Component {
-    animation = new Animated.Value(0);
+export default function FabButon (props) {
+    const [ valor, setValor ] = useState(0);
+    const animation = new Animated.Value(valor)
 
-    toggleMenu = () => {
-        const toValue = this.open ? 0 : 1
-
-        Animated.spring(this.animation, {
-            toValue,
-            friction: 6,
-        }).start();
-
-        this.open = !this.open;
+    function MudaValor() {
+        if (valor == 0) {
+            setValor(1)
+        } else {
+            setValor(0)
+        }
     }
 
-    render(){
+    const toggleMenu = () => {
+        const toValue = valor ? 0 : 1
 
-        // const cameraStyle = {
-        //     transform: [
-        //         { scale: this.animation},
-        //         {
-        //             translateY: this.animation.interpolate({
-        //                 inputRange: [0,1],
-        //                 outputRange: [0, -80]
-        //             })
-        //         }
-        //     ]
-        // }
+        Animated.spring(animation, {
+            toValue,
+            friction: 6,
+            useNativeDriver: true
+        }).start();
+        MudaValor()
+    }
 
-        const rotation = {
-            tranform: [
+    {
+
+        const addBook = {
+            transform: [
+                { scale: animation},
                 {
-                    rotate: this.animation.interpolate ({
+                    translateY: animation.interpolate({
                         inputRange: [0,1],
-                        outputRange: ["0deg", "45deg"]
+                        outputRange: [0, -60]
+                    })
+                }
+            ]
+        }
+
+        const searchBook = {
+            transform: [
+                { scale: animation},
+                {
+                    translateY: animation.interpolate({
+                        inputRange: [0,1],
+                        outputRange: [0, -115]
+                    })
+                }
+            ]
+        }
+
+        const rotation =  {
+            transform: [
+                {translateX: animation },
+                {
+                    rotate: animation.interpolate({
+                        inputRange: [0,1],
+                        outputRange: ['0deg', '45deg'],
                     })
                 }
             ]
         }
 
         return (
-            <View style={[styles.container, this.props.style]}>
-
-            <TouchableWithoutFeedback>
-            <Animated.View style={[styles.button, styles.submenu]}>    
+            <View style={[styles.container, props.style]}>
+            <React.Fragment>
+          
+            </React.Fragment>
+            <TouchableWithoutFeedback onPress={()=> alert ('teste1')}>
+            <Animated.View style={[styles.button, styles.submenu, searchBook ]}>    
+            <Icon name="search" size={24} color="#FFF" />
             </Animated.View>
             </TouchableWithoutFeedback>
             
-            <TouchableWithoutFeedback>
-            <Animated.View style={[styles.button, styles.submenu]}>    
+            <TouchableWithoutFeedback onPress={()=> alert ('teste2')}>
+            <Animated.View style={[styles.button, styles.submenu, addBook]}>  
+            <Icon name="playlist-add" size={24} color="#FFF" />  
             </Animated.View>
             </TouchableWithoutFeedback>
-            
-            <TouchableWithoutFeedback onPress={this.toggleMenu}>
-            <Animated.View style={[styles.button, styles.menu, rotation]}>    
-            </Animated.View>
+           
+            <TouchableWithoutFeedback onPress={toggleMenu}>
+                <Animated.View style={[styles.button, styles.menu, rotation]}>    
+                    <Icon name="add" size={24} color="#FFF" />
+                    
+                </Animated.View>
             </TouchableWithoutFeedback>
             
             </View>
@@ -99,4 +126,4 @@ const styles = StyleSheet.create({
         backgroundColor: '#002244',
 
     }
-  });
+  })
