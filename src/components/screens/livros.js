@@ -1,5 +1,5 @@
 import React from 'react'
-import SubMenu from '../SubMenu';
+import FabButton from '../SubMenu';
 
 // import { Appbar, Modal, Portal, Text, Button, Provider, Avatar} from 'react-native-paper';
 import { Platform, SafeAreaView, View, StyleSheet, Text } from 'react-native';
@@ -12,8 +12,8 @@ export default function Livro(){
 
   return (
     <View style={styles.container}>
-    <SubMenu
-    style={{ bottom: 80, right: 60}}
+    <FabButton
+    style={{ bottom: 75, right: 60}}
     />
     </View>
   )
