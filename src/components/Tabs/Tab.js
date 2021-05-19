@@ -12,11 +12,13 @@ const navigation = useNavigation();
 
 return(
     <Container>
-        <TabsContainer>    
-        <TabItem>
+        <TabsContainer>   
+        <React.Fragment>
+        <TabItem onPress={()=>navigation.navigate('Livros')}>
         <Icon name="person" size={24} color="#FFF"/>
-        <TabText  onPress={()=>navigation.navigate('Livros')}>Meu Perfil</TabText>
+        <TabText  >Meu Perfil</TabText>
         </TabItem>
+        </React.Fragment> 
             <TabItem>
                 <Icon name="auto-stories" size={24} color="#FFF"/>
                 <TabText>Biblioteca</TabText>

@@ -14,8 +14,8 @@ function MyStack() {
     <Stack.Navigator>
     <Stack.Screen name="login" component={LoginScreen} options ={{headerTransparent: true, title:''}}/>
     <Stack.Screen name="cadastro" component={Cadastro}/>
-    <Stack.Screen name="Principal" component={Home} options={{headerTransparent: true, title:'' }}/>
-    <Stack.Screen name="Livros" component={Livro} options/>
+    <Stack.Screen name="Principal" component={Home} options={{headerTransparent: true, title:''}}/>
+    <Stack.Screen name="Livros" component={Livro} options={{}}/>
       
     </Stack.Navigator>
   );
