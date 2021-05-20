@@ -35,7 +35,7 @@ return(
                 </TabItem>
             </TouchableWithoutFeedback>
 
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('Chat')}>
                 <TabItem>                
                     <Icon name="chat" size={24} color="#FFF"/>
                         <TabText>Bate Papo</TabText>
