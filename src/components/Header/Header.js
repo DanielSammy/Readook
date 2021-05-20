@@ -6,7 +6,7 @@ export default function Header() {
 return(
     <Container>
         <Top>
-        <Title> Readook</Title>
+        <Title style={{fontFamily: 'Lastica'}}> Readook</Title>
         </Top>
         <Logo source={logo}/>
     </Container>
