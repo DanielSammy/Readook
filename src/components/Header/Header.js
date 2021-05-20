@@ -1,20 +1,19 @@
 import React from 'react'
 import { Container, Top, Logo, Title } from './style'
+import {StyleSheet} from 'react-native'
 import logo from '../Img/logo1x.png'
 
 export default function Header() {
 return(
     <Container>
         <Top>
-        <Title style={{fontFamily: 'Lastica'}}> Readook</Title>
+        <Title> Readook</Title>
         </Top>
         <Logo source={logo}/>
     </Container>
 )
 
 }
-
-
 
 
 

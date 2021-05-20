@@ -20,4 +20,5 @@ export const Title = styled.Text`
     color: #FFF;
     font-weight: bold;
     margin-left: 8px;
+    font-Family: 'sans-serif';
 `;
