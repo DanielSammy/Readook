@@ -28,6 +28,9 @@
 		067596EAB15146CDAA4A8A06 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99825BE75C984152ABBF47DA /* Octicons.ttf */; };
 		5F46B89CC79F4BD99899BEF9 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B4DDCCFFD624D9BACABAC32 /* SimpleLineIcons.ttf */; };
 		9B9DEF8F10EB4F1887B3D70B /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F71932AE45144BD1B15E93B4 /* Zocial.ttf */; };
+		AA8568442DDB45A1B8AC4392 /* Bestari Trial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66D3C7C7B5824FE2B0C141B2 /* Bestari Trial.ttf */; };
+		2D371C7044424178A198F916 /* Bristone.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 058F001ADCBD423388ACEA5E /* Bristone.ttf */; };
+		3F3C3620457D4FEBA93CBB90 /* Lastica.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37F0BD53EA21421ABCB66585 /* Lastica.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +71,9 @@
 		99825BE75C984152ABBF47DA /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		7B4DDCCFFD624D9BACABAC32 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		F71932AE45144BD1B15E93B4 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		66D3C7C7B5824FE2B0C141B2 /* Bestari Trial.ttf */ = {isa = PBXFileReference; name = "Bestari Trial.ttf"; path = "../assets/fonts/Bestari Trial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		058F001ADCBD423388ACEA5E /* Bristone.ttf */ = {isa = PBXFileReference; name = "Bristone.ttf"; path = "../assets/fonts/Bristone.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		37F0BD53EA21421ABCB66585 /* Lastica.ttf */ = {isa = PBXFileReference; name = "Lastica.ttf"; path = "../assets/fonts/Lastica.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +182,9 @@
 				99825BE75C984152ABBF47DA /* Octicons.ttf */,
 				7B4DDCCFFD624D9BACABAC32 /* SimpleLineIcons.ttf */,
 				F71932AE45144BD1B15E93B4 /* Zocial.ttf */,
+				66D3C7C7B5824FE2B0C141B2 /* Bestari Trial.ttf */,
+				058F001ADCBD423388ACEA5E /* Bristone.ttf */,
+				37F0BD53EA21421ABCB66585 /* Lastica.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -287,6 +296,9 @@
 				067596EAB15146CDAA4A8A06 /* Octicons.ttf in Resources */,
 				5F46B89CC79F4BD99899BEF9 /* SimpleLineIcons.ttf in Resources */,
 				9B9DEF8F10EB4F1887B3D70B /* Zocial.ttf in Resources */,
+				AA8568442DDB45A1B8AC4392 /* Bestari Trial.ttf in Resources */,
+				2D371C7044424178A198F916 /* Bristone.ttf in Resources */,
+				3F3C3620457D4FEBA93CBB90 /* Lastica.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

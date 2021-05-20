@@ -73,13 +73,13 @@ export default function FabButon (props) {
             <React.Fragment>
           
             </React.Fragment>
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={()=> alert('Pesquisar Livros')}>
             <Animated.View style={[styles.button, styles.submenu, searchBook ]}>    
             <Icon name="search" size={24} color="#FFF" />
             </Animated.View>
             </TouchableWithoutFeedback>
             
-            <TouchableWithoutFeedback onPress={()=> alert ('Adicionar Livros')}>
+            <TouchableWithoutFeedback onPress={()=> alert('Adicionar Livros')}>
             <Animated.View style={[styles.button, styles.submenu, addBook]}>  
             <Icon name="playlist-add" size={24} color="#FFF" />  
             </Animated.View>
