@@ -14,7 +14,7 @@ const navigation = useNavigation();
 return(
     <Container>
         <TabsContainer>  
-            <TouchableWithoutFeedback onPress={()=>navigation.navigate('Livros')}>
+            <TouchableWithoutFeedback>
                 <TabItem >
                     <Icon name="person" size={24} color="#FFF"/>
                         <TabText>Meu Perfil</TabText>
