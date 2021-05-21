@@ -158,7 +158,7 @@ export default function FabButon (props) {
             
             <TouchableWithoutFeedback onPress={()=> alert('Adicionar Livros')}>
             <Animated.View style={[styles.button, styles.submenu, addBook]}>  
-            <Icon name="playlist-add" size={24} color="#FFF" />  
+            <Icon name="post-add" size={24} color="#FFF" />  
             </Animated.View>
             </TouchableWithoutFeedback>
            
