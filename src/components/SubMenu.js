@@ -85,6 +85,25 @@ export default function FabButon (props) {
     left={(props) => <Avatar.Icon size={45} icon="folder" />}
     right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
 
+    <Card.Title style={styles.card}
+    title="Card Title"
+    subtitle="Card Subtitle"
+    left={(props) => <Avatar.Icon size={45} icon="folder" />}
+    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+
+    <Card.Title style={styles.card}
+    title="Card Title"
+    subtitle="Card Subtitle"
+    left={(props) => <Avatar.Icon size={45} icon="folder" />}
+    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+
+    <Card.Title style={styles.card}
+    title="Card Title"
+    subtitle="Card Subtitle"
+    left={(props) => <Avatar.Icon size={45} icon="folder" />}
+    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+
+    
 <Card.Title style={styles.title}
     title="Card Title"
     subtitle="Card Subtitle"

@@ -4,7 +4,7 @@ import config from './config'
 export const connection = mysql.createConnection(config.mysql)
 
 connection.connect( err => {
-  if(err) console.log(err)
+  if(err) console.alert(err)
 })
 
 export const consultaUsuario = async () => {
