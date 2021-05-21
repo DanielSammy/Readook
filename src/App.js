@@ -33,3 +33,16 @@ export default function App() {
   }
 
   
+// const HomeScreen = {
+//     static navigationOptions = {
+//       title: 'Home',
+//       headerStyle: {
+//         backgroundColor: '#f4511e',
+//       },
+//       headerTintColor: '#fff',
+//       headerTitleStyle: {
+//         fontWeight: 'bold',
+//       },
+//     }
+//   }
+  

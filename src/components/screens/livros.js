@@ -10,7 +10,7 @@ export default function Livro(){
   return (
     <View style={styles.container}>
     <FabButton
-    style={{ bottom: 75, right: 60}}
+    style={{ bottom: 75, right: 90}}
     />
     </View>
   )

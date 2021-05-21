@@ -1,5 +1,5 @@
   import { StyleSheet} from 'react-native'
-import { theme } from './PageStyle'
+import { card, theme } from './PageStyle'
 
   // export default StyleSheet.create({
   //         App: {
@@ -60,5 +60,9 @@ import { theme } from './PageStyle'
         margin: 15,
         marginLeft: 0,
         marginRight: 0,
+      },
+      card: {
+        color: card.colors.primary
       }
+
     })

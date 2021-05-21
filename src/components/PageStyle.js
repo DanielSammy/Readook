@@ -9,3 +9,11 @@ export const theme = {
     }
 }
 
+export const card = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: "#002244",
+        background: "transparent",
+    }
+}
