@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback, Animated } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, Animated, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 // import { Container } from './styles';
+import { Avatar, Card, DefaultTheme, IconButton } from 'react-native-paper';
+import { theme } from './PageStyle';
 
 // <AntDesign name="plus" size={24} color="#4F8EF7" />
 
@@ -69,10 +71,65 @@ export default function FabButon (props) {
         }
 
         return (
-            <View style={[styles.container, props.style]}>
             <React.Fragment>
-          
-            </React.Fragment>
+            <ScrollView>                
+            <Card.Title style={styles.icon.color}
+    title="A culpa é das Estrelas" 
+    subtitle="Card Subtitle" 
+    left={(props) => <Avatar.Icon  size={45} icon="folder"/>}
+    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+
+<Card.Title style={styles.card}
+    title="Card Title"
+    subtitle="Card Subtitle"
+    left={(props) => <Avatar.Icon size={45} icon="folder" />}
+    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+
+<Card.Title style={styles.title}
+    title="Card Title"
+    subtitle="Card Subtitle"
+    left={(props) => <Avatar.Icon size={45} icon="folder" />}
+    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+
+<Card.Title style={{margin: 2, padding: 3, background: '#fff',border: 'solid', borderRadius: 10}}
+    title="Card Title"
+    subtitle="Card Subtitle"
+    left={(props) => <Avatar.Icon size={45} icon="folder" />}
+    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+
+<Card.Title style={{margin: 2, padding: 3, background: '#fff',border: 'solid', borderRadius: 10}}
+    title="Card Title"
+    subtitle="Card Subtitle"
+    left={(props) => <Avatar.Icon size={45} icon="folder" />}
+    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+
+<Card.Title style={{margin: 2, padding: 3, background: '#fff',border: 'solid', borderRadius: 10}}
+    title="Card Title"
+    subtitle="Card Subtitle"
+    left={(props) => <Avatar.Icon size={45} icon="folder" />}
+    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+
+<Card.Title style={{margin: 2, padding: 3, background: '#fff',border: 'solid', borderRadius: 10}}
+    title="Card Title"
+    subtitle="Card Subtitle"
+    left={(props) => <Avatar.Icon size={45} icon="folder" />}
+    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+
+<Card.Title style={{margin: 2, padding: 3, background: '#fff',border: 'solid', borderRadius: 10}}
+    title="Card Title"
+    subtitle="Card Subtitle"
+    left={(props) => <Avatar.Icon size={45} icon="folder" />}
+    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+
+<Card.Title style={{margin: 2, padding: 3, background: '#fff',border: 'solid', borderRadius: 10}}
+    title="Card Title"
+    subtitle="Card Subtitle"
+    left={(props) => <Avatar.Icon size={45} icon="folder" />}
+    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+
+</ScrollView>
+            
+            <View style={[styles.container, props.style]}>
             <TouchableWithoutFeedback onPress={()=> alert('Pesquisar Livros')}>
             <Animated.View style={[styles.button, styles.submenu, searchBook ]}>    
             <Icon name="search" size={24} color="#FFF" />
@@ -93,7 +150,8 @@ export default function FabButon (props) {
             </TouchableWithoutFeedback>
             
             </View>
-
+    
+</React.Fragment>
         );
     }
 }
@@ -127,5 +185,18 @@ const styles = StyleSheet.create({
         borderRadius: 48 / 2,
         backgroundColor: '#002244',
 
-    }
+    },
+    card:{
+        margin: 2,
+        padding: 3,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        fontFamily: 'Lastica',
+        borderColor: '#002244',
+    },
+    icon: {
+        color: theme.colors.primary
+      }
   })
+
+

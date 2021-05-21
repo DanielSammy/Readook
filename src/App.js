@@ -7,15 +7,16 @@ import { Cadastro } from './components/screens/cadastro'
 import Chat from './components/screens/Chat'
 import Livro from './components/screens/Livros'
 
+
 const Stack = createStackNavigator();
 
 function MyStack() {
   return (
     <Stack.Navigator>
-    <Stack.Screen name="login" component={LoginScreen} options ={{headerTransparent: true, title:''}}/>
-    <Stack.Screen name="cadastro" component={Cadastro}/>
     <Stack.Screen name="Principal" component={Home} options={{headerTransparent: true, title:''}}/>
+    <Stack.Screen name="login" component={LoginScreen} options ={{headerTransparent: true, title:''}}/>
     <Stack.Screen name="Livros" component={Livro}/>
+    <Stack.Screen name="cadastro" component={Cadastro}/>
     <Stack.Screen name="Chat" component={Chat} options={{title: 'Daniel Sammy'}}/>
       
     </Stack.Navigator>

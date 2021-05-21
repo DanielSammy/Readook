@@ -1,8 +1,10 @@
 import styled from 'styled-components/native';
+import React from 'react';
 
 export const Container = styled.View`
         align-items: center;
         padding: 40px 0 30px;
+        
 `;
 
 export const Top = styled.View`
@@ -16,9 +18,8 @@ export const Logo = styled.Image`
 
 export const Title = styled.Text`
     top: 30px;
-    font-size: 45px;
+    font-size: 48px;
     color: #FFF;
-    font-weight: bold;
+
     margin-left: 8px;
-    font-Family: 'sans-serif';
 `;
