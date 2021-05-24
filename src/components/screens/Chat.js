@@ -4,9 +4,9 @@ import { Avatar, Card, TextInput, Button, Text } from 'react-native-paper'
 import { theme } from '../PageStyle'
 import { GiftedChat } from 'react-native-gifted-chat'
 
-const Chat = (props) => {
-  
-  const teste = async () => {
+const Chat = ({navigation}) => {
+  const [ onLoad,setOnLoad ] = useState(true);
+  const puxaUltimasMensagens = async () => {
     await fetch('http://192.168.0.27:8082/chatMensagens/1')
     .then(response => response.json())
     .then(results => transformMessages(results))
@@ -43,13 +43,16 @@ const Chat = (props) => {
 
   const [ messages, setMessages ] = useState([]);
 
-  const atualizaMensagens = useCallback((messages = []) => {
+  useEffect(() => {
+    if (onLoad) {
+      puxaUltimasMensagens();
+      setOnLoad(false)
+    }   
+  },[onLoad])
+
+  const onSend = useCallback((messages = []) => {
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [])
-
-  const onSend = () => {
-    teste();
-  }
 
   return (
     <GiftedChat user={user1} messages={messages} onSend={onSend}/>
