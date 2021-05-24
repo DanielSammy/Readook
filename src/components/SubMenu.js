@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback, Animated, ScrollView, TouchableNativeFeedback, TouchableHighlight } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, Animated, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 // import { Container } from './styles';
-import { Avatar, Card, DefaultTheme, IconButton } from 'react-native-paper';
+import { Avatar, Card, IconButton } from 'react-native-paper';
 import { card, theme } from './PageStyle';
 
 // <AntDesign name="plus" size={24} color="#4F8EF7" />

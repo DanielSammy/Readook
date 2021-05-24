@@ -1,4 +1,5 @@
 import { DefaultTheme } from "react-native-paper";
+import {StyleSheet} from 'react-native'
 
 export const theme = {
     ...DefaultTheme,
@@ -17,3 +18,17 @@ export const card = {
         background: "transparent",
     }
 }
+
+export const styleMap = StyleSheet.create({
+    flex: {
+        flex:1
+    },
+    fab: {
+        backgroundColor:'#002244',
+        position: "absolute",
+        right: 0,
+        bottom: 0,
+        margin: 25
+
+    }
+})
