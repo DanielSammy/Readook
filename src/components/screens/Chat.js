@@ -55,7 +55,7 @@ const Chat = ({navigation}) => {
   }, [])
 
   return (
-    <GiftedChat user={user2} messages={messages} onSend={onSend}/>
+    <GiftedChat user={user1} messages={messages} onSend={onSend}/>
   )
 }
 
