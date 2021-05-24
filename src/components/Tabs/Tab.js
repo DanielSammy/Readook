@@ -1,7 +1,6 @@
 import React from 'react'
 import { Container, TabsContainer, TabItem, TabText  } from './style'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import Livros from '../screens/Livros'
 import { useNavigation } from '@react-navigation/native';
 import {  TouchableNativeFeedback } from 'react-native';
 
@@ -35,9 +34,9 @@ return(
                 </TabItem>
             </TouchableNativeFeedback>
 
-            <TouchableNativeFeedback>
+            <TouchableNativeFeedback onPress={() => navigation.navigate('Maps')}>
                 <TabItem>
-                    <Icon name="pin-drop" size={24} color="#FFF"/>
+                    <Icon name="pin-drop" size={24} color="#FFF" />
                         <TabText>Localizar no mapa</TabText>
                 </TabItem>
             </TouchableNativeFeedback>
