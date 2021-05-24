@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { View, StyleSheet, Alert } from 'react-native'
 import { Avatar, Card, TextInput, Button, Text } from 'react-native-paper'
-import { telaChat } from '../Estilo'
 import { theme } from '../PageStyle'
 import { GiftedChat } from 'react-native-gifted-chat'
 
@@ -50,7 +49,6 @@ const Chat = (props) => {
 
   const onSend = () => {
     teste();
-    console.log(messages)
   }
 
   return (
