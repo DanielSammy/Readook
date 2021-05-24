@@ -7,6 +7,7 @@ import { Cadastro } from './components/screens/Cadastro'
 import Chat from './components/screens/Chat'
 import Livro from './components/screens/Livros'
 import Maps from './components/screens/Maps'
+// import 
 
 
 const Stack = createStackNavigator();
