@@ -11,7 +11,11 @@ export default function Profile() {
       <Container>
       <Top>
       </Top>
+<<<<<<< Updated upstream
 <Logo source={logo}></Logo>
+=======
+<Logo source={logo} size={50}></Logo>
+>>>>>>> Stashed changes
   </Container>
    );
  }
