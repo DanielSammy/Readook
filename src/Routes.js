@@ -3,6 +3,8 @@ import bodyParser from 'body-parser'
 import Banco from './bancodados/consulta'
 
 const app = express();
+app.use(express.json)
+app.use(express.urlencoded({extended: true}))
 
 app.use(express.static('public'))
 
@@ -24,6 +26,10 @@ app.get('/chatMensagens/:idChat', async (req, res) => {
   const results = await Banco.consultaChatMensagens(chatCodigo)
   res.send(results)
 })
+
+app.get('/chatMensagens/newMessage'), async (req, res) => {
+  console.log('req.json')
+}
 
 app.listen(8082, () => {
   console.log('Servidor online na porta 8082')
