@@ -53,8 +53,21 @@ export const consultaChatMensagens = async (chatCodigo) => {
   })
 }
 
+export const insereNovaMensagem = async (chatCodigo, usrRem, usrDes, data, hora, mensagem) => {
+  return new Promise((resolve, reject) => {
+    connection.query(`INSERT INTO chatmensagem ('chm_chacodigo','chm_usrcodigorem','chm_usrcodigodes', 'chm_data', 'chm_hora', 'chm_mensagem')
+     values (${chatCodigo},${usrRem},${usrDes},'${data}', '${hora}', '${mensagem}' ) `, (err, results) => {
+       if (err) {
+         return reject(err)
+       }
+       resolve(results);
+     })
+  })
+}
+
 export default {
   consultaUsuario,
   consultaChat,
   consultaChatMensagens,
+  insereNovaMensagem
 }
