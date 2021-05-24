@@ -52,7 +52,7 @@ const Chat = (props) => {
   }
 
   return (
-    <GiftedChat user={user1} messages={messages} onSend={onSend}/>
+    <GiftedChat user={user2} messages={messages} onSend={onSend}/>
   )
 }
 
