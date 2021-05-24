@@ -12,25 +12,30 @@ export default function Profile() {
       <Container>
       <Logo source={logo}></Logo>
       <View>
-      <Icon name="mail" size={25}>
-      </Icon> 
-      <Text> danielsammy@spaceinformatica.com.br</Text>
+      <Icon name="mail" size={25}/> 
+      <Text style={styles.Perfil}> danielsammy@spaceinformatica.com.br</Text>
+      <Icon name="mail" size={25}/> 
+      <Text style={styles.Perfil}> danielsammy@spaceinformatica.com.br</Text>
+      <Icon name="mail" size={25}/> 
+      <Text style={styles.Perfil}> dandanboiolao@spaceinformatica.com.br</Text>
       </View> 
       </Container>
       
    );
  }
 
-const styles = StyleSheet.create({
-
-   text: {
-      fontSize: 10,
-      
-   },
-}
-)
-
 export const Logo = styled.Image`
    width: 150px;
    height: 150px;
 `;
+
+
+const styles = StyleSheet.create({
+   Perfil:{
+      alignItems: 'center',
+      right: 0,
+      padding: 3,
+   }
+
+
+})
