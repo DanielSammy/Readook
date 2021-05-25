@@ -68,18 +68,6 @@ export default function Maps() {
        )
 }
 
-// -19.903124854806357, -44.031166485484455
-// const styles= StyleSheet.create({
-//     mapView: {
-//         flex: 1,
-//         position: 'absolute',
-//         top: 0,
-//         left: 0,
-//         right: 0,
-//         bottom: 0,
-//     }
-// })
-
 const styles = StyleSheet.create({
     container: {
       ...StyleSheet.absoluteFillObject,
