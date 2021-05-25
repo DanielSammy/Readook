@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Top, Logo, Title } from './style'
 import {StyleSheet} from 'react-native'
-import logo from '../Img/logo1x.png'
+import logo from '../Img/logo3x.png'
 import { theme } from '../PageStyle'
 
 export default function Header() {

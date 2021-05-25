@@ -14,7 +14,7 @@ export const LoginScreen = (props) =>{
            <SafeAreaView style={loginStyle.content}>
            <View style={loginStyle.view}>
            <Card>
-           <Avatar.Image size={75} source={require('../Img/logo1x.png')}
+           <Avatar.Image size={75} source={require('../Img/logoR.png')}
            style={loginStyle.avatar}/>
           <Card.Content>
           <TextInput label="Email" theme={theme} keyboardType="email-address" style={loginStyle.cardLabel}></TextInput>

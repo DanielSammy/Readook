@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, Button, StyleSheet, SafeAreaView } from 'react-native'
 import { Container} from '../Header/style';
-import logo from '../Img/logo1x.png'
+import logo from '../Img/logoR.png'
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
