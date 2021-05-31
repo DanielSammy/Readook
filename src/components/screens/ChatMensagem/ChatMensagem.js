@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { View, StyleSheet, Alert } from 'react-native'
+import { View, StyleSheet, Alert, SafeAreaView } from 'react-native'
 import { Avatar, Card, TextInput, Button, Text } from 'react-native-paper'
-import { theme } from '../PageStyle'
 import { GiftedChat } from 'react-native-gifted-chat'
 
-const Chat = ({navigation}) => {
+const ChatMensagem = ({navigation, route}) => {
+  const codigoChat = route.params.chatCodigo;
+  const nomeUsuario = route.params.name;
   const [ onLoad,setOnLoad ] = useState(true);
   const puxaUltimasMensagens = async () => {
-    await fetch('http://192.168.0.27:8082/chatMensagens/1')
+    await fetch(`http://192.168.0.4:8082/chatMensagens/${codigoChat}`)
     .then(response => response.json())
     .then(results => transformMessages(results))
   }
@@ -20,11 +21,11 @@ const Chat = ({navigation}) => {
     const newMessage = {};
     newMessage._id = mensagem.chm_codigo
     newMessage.text = mensagem.chm_mensagem
-    newMessage.createdAt = `${mensagem.chm_data.substring(0,10)}T${mensagem.chm_hora}.000Z`
+    newMessage.createdAt = mensagem.chm_datahora
     const user = {}
     user._id = mensagem.chm_usrcodigorem
-    user.avatar='https://instagram.fplu17-1.fna.fbcdn.net/v/t51.2885-19/s150x150/130977061_213673910195874_8290903381897238855_n.jpg?tp=1&_nc_ht=instagram.fplu17-1.fna.fbcdn.net&_nc_ohc=frqpMC4d2kwAX8W7mQm&edm=ABfd0MgBAAAA&ccb=7-4&oh=2cb22a02ed97995b378704d3d3ace6b8&oe=60B38C5C&_nc_sid=7bff83'
-    user.name="Daniel"
+    user.avatar= mensagem.usr_avatar
+    user.name= mensagem.usr_nomecompleto
     newMessage.user = user
     setMessages(previousMessages => GiftedChat.append(previousMessages, newMessage))
   }
@@ -32,14 +33,14 @@ const Chat = ({navigation}) => {
   const user1 = {
     _id: 1,
     name: "Otavio",
-    avatar: 'https://drive.google.com/file/d/1VOXiB1MQ9SGGy7GGcNoUPWdl49d4uvf6/view?usp=sharing'
+    avatar: 'https://hosting.photobucket.com/images/i/tadss/15624557_374919729537828_5178839507880902656_n.jpg?width=450&height=278&crop=fill'
   }
 
-  const user2 = {
-    _id: 2,
-    name: "Daniel",
-    avatar: 'https://randomuser.me/api/portraits/men/58.jpg'
-  }
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: nomeUsuario === '' ? 'No title' : nomeUsuario,
+    });
+  }, [navigation, nomeUsuario]);
 
   const [ messages, setMessages ] = useState([]);
 
@@ -51,12 +52,13 @@ const Chat = ({navigation}) => {
   },[onLoad])
 
   const onSend = useCallback((messages = []) => {
+    
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [])
 
   return (
-    <GiftedChat user={user1} messages={messages} onSend={onSend}/>
+      <GiftedChat user={user1} messages={(messages)} onSend={onSend} renderAvatar={null}/>
   )
 }
 
-export default Chat;
+export default ChatMensagem;
