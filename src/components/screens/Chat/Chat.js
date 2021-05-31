@@ -4,17 +4,19 @@ import { View, StyleSheet, Alert, SafeAreaView, ScrollView, Image } from 'react-
 import { Avatar, Card, TextInput, Button, Text } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native';
 import { ChatContainer, ContainerImage, ImageContainer, TextContainer } from './styles';
+import io from 'socket.io-client'
+import Global from '../Global'
 
 
-const Chat = ({route}) => {
-    const navigation = useNavigation();
+
+
+const Chat = ({route, navigation}) => {
     const [ chats, setChats ] = useState([])
     const [ onLoad, setOnLoad ] = useState(true)
     const carregaBatePapo = async (usuario) => {
-        await fetch(`http://192.168.0.4:8082/chat/${usuario}`)
+        await fetch(`http://192.168.0.27:8082/chat/${usuario}`)
         .then(response => response.json())
         .then(results => transformChat(results))
-        navigation.navigate('Chat',chats)
     }
 
     const transformChat = async (conversas) => {
@@ -41,7 +43,7 @@ const Chat = ({route}) => {
 
       useEffect(() => {
         if (onLoad) {
-            carregaBatePapo(1);
+            carregaBatePapo(Global.user.usrCodigo);
             setOnLoad(false)
         }   
       },[onLoad])

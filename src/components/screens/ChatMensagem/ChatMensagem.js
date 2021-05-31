@@ -8,7 +8,7 @@ const ChatMensagem = ({navigation, route}) => {
   const nomeUsuario = route.params.name;
   const [ onLoad,setOnLoad ] = useState(true);
   const puxaUltimasMensagens = async () => {
-    await fetch(`http://192.168.0.4:8082/chatMensagens/${codigoChat}`)
+    await fetch(`http://192.168.0.27:8082/chatMensagens/${codigoChat}`)
     .then(response => response.json())
     .then(results => transformMessages(results))
   }

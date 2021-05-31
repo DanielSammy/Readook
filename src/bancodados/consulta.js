@@ -8,9 +8,9 @@ connection.connect( err => {
   if(err) console.error(err)
 })
 
-export const consultaUsuario = async () => {
+export const consultaUsuario = async (email) => {
   return new Promise((resolve, reject) => {
-    connection.query('SELECT * FROM usuario', (err, results) => {
+    connection.query(`SELECT * FROM usuario where usr_email = ${email}`, (err, results) => {
       if(err) {
         return reject(err)
       }
