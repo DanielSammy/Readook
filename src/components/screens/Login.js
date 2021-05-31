@@ -31,7 +31,8 @@ export const LoginScreen = (props) =>{
        usrCodigo : results[0].usr_codigo,
        usrAvatar : results[0].usr_avatar,
        usrDtnascimento: results[0].usr_dtnascimento, 
-       usrCpf: results[0].usr_cpf
+       usrCpf: results[0].usr_cpf,
+       usrFone: results[0].usr_fone,
       }
       Global.user=usrLogando
       Principal()

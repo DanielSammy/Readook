@@ -20,14 +20,14 @@ export default function Profile({navigation}) {
    return (
       <SafeAreaView>
          <Container>
-      <Logo source={logo}></Logo>
+      <Logo source={{uri: `${Global.user.usrAvatar}`}}></Logo>
          </Container>
 <View>
       <Text style={styles.Perfil}>Email: {Global.user.usrEmail}</Text>
       <Icon name="mail" size={25} style={styles.icon}/> 
 </View>
 <View>
-      <Text style={styles.Perfil}>Telefone: (31) 99999-9999</Text>
+      <Text style={styles.Perfil}>Telefone: {Global.user.usrFone}</Text>
       <Icon name="phone" size={25} style={styles.icon}/> 
 </View>
 <View>
