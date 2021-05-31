@@ -30,7 +30,7 @@ const Chat = ({route, navigation}) => {
         newChat.data = `${conversa.chm_datahora.substring(8,10)}/${conversa.chm_datahora.substring(5,7)}/${conversa.chm_datahora.substring(0,4)}`
         newChat.hora = conversa.chm_datahora.substring(11,16)
         const user = {}
-        user._id = conversa.chm_usrcodigorem
+        user._id = conversa.usr_codigo
         user.avatar= conversa.usr_avatar
         user.name= conversa.usr_nomecompleto
         newChat.user = user
@@ -59,6 +59,7 @@ const Chat = ({route, navigation}) => {
                     <TextContainer key={chat._id}>
                         <TouchableNativeFeedback data-key={chat._id} onPress={() => navigation.navigate('ChatMensagem', {
                             chatCodigo: chat._id,
+                            codigoDest: chat.user._id,
                             name: chat.user.name})}>
                             <View style={{display:'flex', flexDirection:'column'}}>
                                 <View style={{display:'flex', flexDirection:'row'}}>

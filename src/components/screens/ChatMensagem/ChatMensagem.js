@@ -3,11 +3,14 @@ import { View, StyleSheet, Alert, SafeAreaView } from 'react-native'
 import { Avatar, Card, TextInput, Button, Text } from 'react-native-paper'
 import { GiftedChat } from 'react-native-gifted-chat'
 import Global from '../Global'
+import io from 'socket.io-client'
 
 
 const ChatMensagem = ({navigation, route}) => {
+  const socket = io('http://192.168.0.27:8082')
   const codigoChat = route.params.chatCodigo;
   const nomeUsuario = route.params.name;
+  const userDest = route.params.codigoDest
   const [ onLoad,setOnLoad ] = useState(true);
   const puxaUltimasMensagens = async () => {
     await fetch(`http://192.168.0.27:8082/chatMensagens/${codigoChat}`)
@@ -53,8 +56,25 @@ const ChatMensagem = ({navigation, route}) => {
     }   
   },[onLoad])
 
+  useEffect(() => {
+    const handleNewMessage = novaMensagem => {
+      setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    }
+    socket.on('chatMensagem', data => {
+      if (data.usrDest == Global.user.usrCodigo) {
+       console.log("oi")
+      } else {
+        console.log('boi')
+      }
+    })
+  },[socket])
+
   const onSend = useCallback((messages = []) => {
-    
+    const data = {
+      userDest : userDest,
+      message : messages
+    }
+    socket.emit('chatMensagem', data)
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [])
 

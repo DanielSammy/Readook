@@ -39,7 +39,11 @@ app.post('/chatMensagens/newMessage'), async (req, res) => {
 }
 
 io.on('connection',(socket) => {
-  console.log(socket.id)
+  console.log('conectou')
+  socket.on('chatMensagem', data => {
+    console.log('Nova Mensagem Chegou', data)
+    io.emit('chatMensagem', data)
+  })
 })
 
 server.listen(8082, () => {
