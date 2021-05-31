@@ -4,18 +4,26 @@ import { Container} from '../Header/style';
 import logo from '../Img/logoR.png'
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import Global from './Global'
 
 
 
 
-export default function Profile() {
+export default function Profile({navigation}) {
+
+   React.useLayoutEffect(() => {
+      navigation.setOptions({
+        title: Global.user.usrNomeCompleto === '' ? 'Perfil' : Global.user.usrNomeCompleto,
+      });
+    }, [navigation, Global.user.usrNomeCompleto]);
+
    return (
       <SafeAreaView>
          <Container>
       <Logo source={logo}></Logo>
          </Container>
 <View>
-      <Text style={styles.Perfil}>Email: danielsammy@spaceinformatica.com.br</Text>
+      <Text style={styles.Perfil}>Email: {Global.user.usrEmail}</Text>
       <Icon name="mail" size={25} style={styles.icon}/> 
 </View>
 <View>
@@ -35,6 +43,8 @@ export const Logo = styled.Image`
    height: 150px;
 
 `;
+
+
 
 
 const styles = StyleSheet.create({

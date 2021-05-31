@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { View, StyleSheet, Alert, SafeAreaView } from 'react-native'
 import { Avatar, Card, TextInput, Button, Text } from 'react-native-paper'
 import { GiftedChat } from 'react-native-gifted-chat'
+import Global from '../Global'
+
 
 const ChatMensagem = ({navigation, route}) => {
   const codigoChat = route.params.chatCodigo;
@@ -31,9 +33,9 @@ const ChatMensagem = ({navigation, route}) => {
   }
 
   const user1 = {
-    _id: 1,
-    name: "Otavio",
-    avatar: 'https://hosting.photobucket.com/images/i/tadss/15624557_374919729537828_5178839507880902656_n.jpg?width=450&height=278&crop=fill'
+    _id: Global.user.usrCodigo,
+    name: Global.user.usrNomeCompleto,
+    avatar: Global.user.usrAvatar
   }
 
   React.useLayoutEffect(() => {

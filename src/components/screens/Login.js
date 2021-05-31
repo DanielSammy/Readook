@@ -26,6 +26,7 @@ export const LoginScreen = (props) =>{
          return ''
       }
       const usrLogando = {
+       usrNomeCompleto : results[0].usr_nomecompleto,
        usrEmail: results[0].usr_email,
        usrCodigo : results[0].usr_codigo,
        usrAvatar : results[0].usr_avatar,
