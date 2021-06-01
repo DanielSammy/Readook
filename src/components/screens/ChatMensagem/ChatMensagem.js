@@ -58,16 +58,17 @@ const ChatMensagem = ({navigation, route}) => {
 
   useEffect(() => {
     const handleNewMessage = novaMensagem => {
-      setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+      setMessages(previousMessages => GiftedChat.append(previousMessages, novaMensagem))
     }
     socket.on('chatMensagem', data => {
-      if (data.usrDest == Global.user.usrCodigo) {
-       console.log("oi")
+      if (data.userDest == Global.user.usrCodigo) {
+        handleNewMessage(data.message)
       } else {
-        console.log('boi')
+        console.log('Não é pra ti')
       }
     })
-  },[socket])
+    return () => socket.off('chatMensagem')
+  },[messages])
 
   const onSend = useCallback((messages = []) => {
     const data = {
@@ -76,7 +77,7 @@ const ChatMensagem = ({navigation, route}) => {
     }
     socket.emit('chatMensagem', data)
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-  }, [])
+  }, )
 
   return (
       <GiftedChat user={user1} messages={(messages)} onSend={onSend} renderAvatar={null}/>
