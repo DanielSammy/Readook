@@ -14,7 +14,7 @@ const Chat = ({route, navigation}) => {
     const [ chats, setChats ] = useState([])
     const [ onLoad, setOnLoad ] = useState(true)
     const carregaBatePapo = async (usuario) => {
-        await fetch(`http://192.168.0.27:8082/chat/${usuario}`)
+        await fetch(`http://192.168.0.150:8082/chat/${usuario}`)
         .then(response => response.json())
         .then(results => transformChat(results))
     }
@@ -37,16 +37,24 @@ const Chat = ({route, navigation}) => {
         await setChats((prevState) => ([
             ...prevState , 
             newChat]))
-        
-        
       }
-
+      const goToChatMensagem = (chat) => {
+        navigation.navigate('ChatMensagem', {
+            chatCodigo: chat._id,
+            codigoDest: chat.user._id,
+            name: chat.user.name})
+      }
+    
       useEffect(() => {
         if (onLoad) {
             carregaBatePapo(Global.user.usrCodigo);
             setOnLoad(false)
-        }   
-      },[onLoad])
+        }
+        return () => {
+            setChats([])
+            setOnLoad(true)
+        }
+      },[])
     
     return (
         <SafeAreaView>
@@ -57,10 +65,7 @@ const Chat = ({route, navigation}) => {
                         <ContainerImage source={{uri: chat.user.avatar}}/>
                     </ImageContainer>
                     <TextContainer key={chat._id}>
-                        <TouchableNativeFeedback data-key={chat._id} onPress={() => navigation.navigate('ChatMensagem', {
-                            chatCodigo: chat._id,
-                            codigoDest: chat.user._id,
-                            name: chat.user.name})}>
+                        <TouchableNativeFeedback data-key={chat._id} onPress={() => goToChatMensagem(chat)}>
                             <View style={{display:'flex', flexDirection:'column'}}>
                                 <View style={{display:'flex', flexDirection:'row'}}>
                                     <Text style={{fontWeight:'bold', fontSize:16, marginRight:'auto'}}>

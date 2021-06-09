@@ -67,10 +67,23 @@ export const consultaChatMensagens = async (chatCodigo) => {
   })
 }
 
-export const insereNovaMensagem = async (chatCodigo, usrRem, usrDes, data, hora, mensagem) => {
+const converterHoraParaLocal = (data) => {
+  const novaData = new Date(data.getTime()+data.getTimezoneOffset()*60*1000)
+  const diferenca = data.getTimezoneOffset() / 60
+  const horas = data.getHours()
+
+  novaData.setHours(horas - diferenca)
+
+  return novaData
+}
+
+export const insereNovaMensagem = async (chatCodigo, usrRem, usrDes, datahora, mensagem) => {
   return new Promise((resolve, reject) => {
-    connection.query(`INSERT INTO chatmensagem ('chm_chacodigo','chm_usrcodigorem','chm_usrcodigodes', 'chm_datahora', 'chm_mensagem')
-     values (${chatCodigo},${usrRem},${usrDes},'${datahora}', '${mensagem}' ) `, (err, results) => {
+    const data = converterHoraParaLocal(new Date(datahora))
+    const stringData = data.toISOString()
+    const dataHoraCorreta = stringData.substr(0,stringData.length - 1)
+    connection.query(`INSERT INTO chatmensagem (chm_chacodigo, chm_usrcodigorem, chm_usrcodigodes, chm_datahora, chm_mensagem)
+     values (${chatCodigo},${usrRem},${usrDes},'${dataHoraCorreta}', '${mensagem}' ) `, (err, results) => {
        if (err) {
          return reject(err)
        }

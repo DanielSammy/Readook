@@ -1,10 +1,11 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 import Banco from './bancodados/consulta'
 import socketio from 'socket.io'
 import http from 'http'
 
 const app = express();
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
 const server = http.createServer(app)
 const io = new socketio.Server(server);
 
@@ -34,9 +35,17 @@ app.get('/chatMensagens/:idChat', async (req, res) => {
   res.send(results)
 })
 
-app.post('/chatMensagens/newMessage'), async (req, res) => {
-  console.log(req.json)
-}
+app.post('/chatMensagens/novaMensagem', async (req, res) => {
+  console.log(req.body)
+  const informacaoInsert = req.body[0]
+  const chatCodigo = informacaoInsert.chatCodigo
+  const usrRem = informacaoInsert.user._id
+  const usrDes = informacaoInsert.usrDest
+  const dataHora = informacaoInsert.createdAt
+  const mensagem = informacaoInsert.text
+  const results = await Banco.insereNovaMensagem(chatCodigo, usrRem, usrDes, dataHora, mensagem)
+  res.send(results)
+})
 
 io.on('connection',(socket) => {
   console.log('conectou')

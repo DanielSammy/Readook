@@ -1,19 +1,24 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { View, StyleSheet, Alert, SafeAreaView } from 'react-native'
-import { Avatar, Card, TextInput, Button, Text } from 'react-native-paper'
-import { GiftedChat } from 'react-native-gifted-chat'
+import { View, StyleSheet, Alert, BackHandler, SafeAreaView } from 'react-native'
+import { CommonActions } from '@react-navigation/native'
+import { HeaderBackButton } from '@react-navigation/stack'
+import { Avatar, Card, TextInput, Button, Text, } from 'react-native-paper'
+import { GiftedChat, Day } from 'react-native-gifted-chat'
 import Global from '../Global'
 import io from 'socket.io-client'
+import dayjs from 'dayjs'
+import 'dayjs/locale/pt-br'
 
 
 const ChatMensagem = ({navigation, route}) => {
-  const socket = io('http://192.168.0.27:8082')
+  const locale = dayjs.locale('pt-br')
+  const socket = io('http://192.168.0.150:8082')
   const codigoChat = route.params.chatCodigo;
   const nomeUsuario = route.params.name;
   const userDest = route.params.codigoDest
   const [ onLoad,setOnLoad ] = useState(true);
   const puxaUltimasMensagens = async () => {
-    await fetch(`http://192.168.0.27:8082/chatMensagens/${codigoChat}`)
+    await fetch(`http://192.168.0.150:8082/chatMensagens/${codigoChat}`)
     .then(response => response.json())
     .then(results => transformMessages(results))
   }
@@ -44,6 +49,11 @@ const ChatMensagem = ({navigation, route}) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: nomeUsuario === '' ? 'No title' : nomeUsuario,
+      headerLeft:() => (<HeaderBackButton
+        onPress={() => backAction()}
+        title="Info"
+        tintColor="#fff"
+      />),
     });
   }, [navigation, nomeUsuario]);
 
@@ -70,17 +80,59 @@ const ChatMensagem = ({navigation, route}) => {
     return () => socket.off('chatMensagem')
   },[messages])
 
-  const onSend = useCallback((messages = []) => {
+  
+    const backAction = () => {
+       navigation.dispatch(
+          CommonActions.reset({
+          index: 1,
+          routes:[
+            {name: 'Principal'},
+            {name: 'Chat'},
+          ], 
+        })
+        )
+      return true;
+    };
+
+    useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
+  const mandaMensagemBD = async (newMessages) => {
+    const informacaoInsert = newMessages
+    informacaoInsert[0].chatCodigo = codigoChat
+    informacaoInsert[0].usrDest = userDest
+    const response = await fetch('http://192.168.0.150:8082/chatMensagens/novaMensagem', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(informacaoInsert)
+            })
+            .then(response => response.json())
+  }
+
+  const onSend =   useCallback( async (newMessages = []) => {
+    await setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages))
     const data = {
       userDest : userDest,
-      message : messages
+      message : newMessages
     }
-    socket.emit('chatMensagem', data)
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    await socket.emit('chatMensagem', data)
+    await mandaMensagemBD(newMessages)
   }, )
 
   return (
-      <GiftedChat user={user1} messages={(messages)} onSend={onSend} renderAvatar={null}/>
+      <GiftedChat user={user1} 
+      messages={(messages)} 
+      onSend={onSend} 
+      renderAvatar={null}/>
   )
 }
 
