@@ -71,9 +71,14 @@ const converterHoraParaLocal = (data) => {
   const novaData = new Date(data.getTime()+data.getTimezoneOffset()*60*1000)
   const diferenca = data.getTimezoneOffset() / 60
   const horas = data.getHours()
-
+  const dia = data.getDate()
   novaData.setHours(horas - diferenca)
-
+  if (horas >= 21 && horas <= 23) {
+    novaData.setDate(dia)
+    console.log('sim')
+  } else {
+    console.log('nao')
+  }
   return novaData
 }
 

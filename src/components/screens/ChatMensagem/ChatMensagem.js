@@ -3,22 +3,21 @@ import { View, StyleSheet, Alert, BackHandler, SafeAreaView } from 'react-native
 import { CommonActions } from '@react-navigation/native'
 import { HeaderBackButton } from '@react-navigation/stack'
 import { Avatar, Card, TextInput, Button, Text, } from 'react-native-paper'
-import { GiftedChat, Day } from 'react-native-gifted-chat'
+import { GiftedChat, Day, Send } from 'react-native-gifted-chat'
 import Global from '../Global'
-import io from 'socket.io-client'
+import { socket } from '../../../services/socket'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 
 
 const ChatMensagem = ({navigation, route}) => {
   const locale = dayjs.locale('pt-br')
-  const socket = io('http://192.168.0.150:8082')
   const codigoChat = route.params.chatCodigo;
   const nomeUsuario = route.params.name;
   const userDest = route.params.codigoDest
   const [ onLoad,setOnLoad ] = useState(true);
   const puxaUltimasMensagens = async () => {
-    await fetch(`http://192.168.0.150:8082/chatMensagens/${codigoChat}`)
+    await fetch(`http://179.221.167.148:8082/chatMensagens/${codigoChat}`)
     .then(response => response.json())
     .then(results => transformMessages(results))
   }
@@ -107,7 +106,7 @@ const ChatMensagem = ({navigation, route}) => {
     const informacaoInsert = newMessages
     informacaoInsert[0].chatCodigo = codigoChat
     informacaoInsert[0].usrDest = userDest
-    const response = await fetch('http://192.168.0.150:8082/chatMensagens/novaMensagem', {
+    const response = await fetch('http://179.221.167.148:8082/chatMensagens/novaMensagem', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -124,14 +123,30 @@ const ChatMensagem = ({navigation, route}) => {
       userDest : userDest,
       message : newMessages
     }
-    await socket.emit('chatMensagem', data)
     await mandaMensagemBD(newMessages)
+    await socket.emit('chatMensagem', data)
   }, )
 
+  const renderSend = (props) => {
+    return (
+      <Send {...props} textStyle={{ color: '#002244' }} label={'Enviar'} />
+    )
+  }
+
   return (
-      <GiftedChat user={user1} 
+      <GiftedChat user={user1}
+      listViewProps={{
+        style: {
+          backgroundColor: '#daebeb',
+        },
+      }}
+      textInputStyle={{
+        color: '#000',
+      }}
+      renderSend={renderSend}
       messages={(messages)} 
-      onSend={onSend} 
+      onSend={onSend}
+      timeFormat={"HH:mm"}
       renderAvatar={null}/>
   )
 }

@@ -1,17 +1,27 @@
 import express from 'express'
+import socketio  from 'socket.io'
 import Banco from './bancodados/consulta'
-import socketio from 'socket.io'
 import http from 'http'
+import cors from 'cors'
 
 const app = express();
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 const server = http.createServer(app)
-const io = new socketio.Server(server);
+const io = new socketio.Server(server,{
+ cors: {origin: '*'}
+})
+app.use(cors())
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 
 app.get('/usuario/:emailUsr', async (req, res) => {
   const email = req.params.emailUsr
-  const results = await Banco.consultaUsuario(email);
+  const results = await Banco.consultaUsuario(email)
   res.json(results)
 })
 

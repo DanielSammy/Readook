@@ -14,7 +14,7 @@ const Chat = ({route, navigation}) => {
     const [ chats, setChats ] = useState([])
     const [ onLoad, setOnLoad ] = useState(true)
     const carregaBatePapo = async (usuario) => {
-        await fetch(`http://192.168.0.150:8082/chat/${usuario}`)
+        await fetch(`http://179.221.167.148:8082/chat/${usuario}`)
         .then(response => response.json())
         .then(results => transformChat(results))
     }
