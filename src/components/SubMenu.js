@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Animated, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
-// import { Container } from './styles';
-import { Avatar, Card, IconButton } from 'react-native-paper';
+import { Avatar, Card, IconButton, Portal, Modal,TextInput, Provider, Button} from 'react-native-paper';
 import { card, theme } from './PageStyle';
+import axios from 'axios'
+import { telaCadastro } from './Estilo';
+
 
 // <AntDesign name="plus" size={24} color="#4F8EF7" />
+
 
 export default function FabButon (props) {
     const [ valor, setValor ] = useState(0);
@@ -69,86 +72,90 @@ export default function FabButon (props) {
                 }
             ]
         }
+        
+const [ livro, setLivros ] = useState([])
+
+useEffect(() => {
+    axios.get('https://meuservidordetrabalho.herokuapp.com/base')
+    .then(res => {
+        const livro = res.data
+        setLivros( livro )
+      })
+      .catch(function (error) {
+        console.log(error)
+      }) //Fim do Axios
+  });
+
+
+    const [visible, setVisible] = useState(false);
+  
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
+    const containerStyle = {backgroundColor: 'white', padding: 100};
+    // Fim do Modal
+
+    const [autor, setAutor] = useState(undefined)
+    const [nome, setNome ] = useState(undefined)
+    const [email, setEmail ] = useState(undefined)
+    const [objetivo, setObjetivo ] = useState(undefined)
+
+    function setarAutor (e){
+        setAutor (e)
+    } 
+
+    function setarNome (e){
+        setNome (e)
+    } 
+    
+    function setarEmail (e){
+        setEmail (e)
+    } 
+    
+    function setarObj (e){
+        setObjetivo (e)
+    } 
+
+    function cadastrar() {
+        
+        axios.post('https://meuservidordetrabalho.herokuapp.com/cadastro', {
+        nome: nome,
+            autor:autor,
+            email_contato:email,
+            objetivo:objetivo
+            
+        })
+        .then(function (response) {
+        })
+        .catch(function (error) {
+        });
+    }  //Fim do Post
 
         return (
             <React.Fragment>
-            <ScrollView> 
-<Card.Title style={styles.card}
-            title="Orgulho e Preconceito" 
-            subtitle="Autor: Jane Austen" 
-            left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant"/>}
-            right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
-           
+            <ScrollView>
+                {livro.map(  (e) => {
+                    return(
 
-<Card.Title style={styles.card}
-    title="Em Busca Do Tempo Perdido"
-    subtitle="Autor: Marcel Prroust"
-    left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant" />}
-    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
-
-<Card.Title style={styles.card}
-    title="Admirável Mundo Novo"
-    subtitle="Autor: Aldous Leonard Huxley"
-    left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant" />}
-    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
-
-<Card.Title style={styles.card}
-    title="Nunca Desista de Seus Sonhos"
-    subtitle="Autor: Augusto Cury"
-    left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant" />}
-    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
-
-<Card.Title style={styles.card}
-    title="O Menino e o Rio"
-    subtitle="Autor: Paulo Castro"
-    left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant" />}
-    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
-
-    
-<Card.Title style={styles.title}
-    title="O Inferno Somos Nós"
-    subtitle="Autor: Coen Roshi & Leandro Karnal "
-    left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant" />}
-    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
-
-<Card.Title style={{margin: 2, padding: 3, background: '#fff',border: 'solid', borderRadius: 10}}
-    title="Capitães da Areia"
-    subtitle="Autor: Jorge Amado"
-    left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant" />}
-    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
-
-<Card.Title style={{margin: 2, padding: 3, background: '#fff',border: 'solid', borderRadius: 10}}
-    title="A vida secreta dos animais"
-    subtitle="Autor: Peter Wohlleben"
-    left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant" />}
-    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
-
-<Card.Title style={{margin: 2, padding: 3, background: '#fff',border: 'solid', borderRadius: 10}}
-    title="A revolução dos bichos"
-    subtitle="Autor George Orwell:"
-    left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant" />}
-    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
-
-<Card.Title style={{margin: 2, padding: 3, background: '#fff',border: 'solid', borderRadius: 10}}
-    title="A Torre Negra: O Pistoleiro"
-    subtitle="Autor: Stephen King"
-    left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant" />}
-    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
-
-<Card.Title style={{margin: 2, padding: 3, background: '#fff',border: 'solid', borderRadius: 10}}
-    title="O Dilema do Porco-Espinho"
-    subtitle="Autor: Leandro Karnal"
-    left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant" />}
-    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
-
-<Card.Title style={{margin: 2, padding: 3, background: '#fff',border: 'solid', borderRadius: 10}}
-    title="Chico Bento"
-    subtitle="Autor: Mauricio de Sousa"
-    left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant" />}
-    right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
-
+                        <Card.Title style={styles.card}
+                        title= {e.nome}
+                        subtitle= {e.autor} 
+                        left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant"/>}
+                        right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+                        )
+                    })   
+                }
 </ScrollView>
-            
+                <Provider>
+            <Portal>
+               <Modal style={{padding: 10 }} visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+                    <TextInput Value="" key='1' onChangeText={(a)=> {setarNome (a)}} label="Nome do Livro" theme={theme}/>
+                    <TextInput Value="" key='2' onChangeText={(a)=> {setarAutor (a)}} label="Autor do Livro" theme={theme}/>
+                    <TextInput Value="" key='3' onChangeText={(a)=> {setarEmail (a)}} label="Email" theme={theme}/> 
+                    <TextInput Value="" key='4' onChangeText={(a)=> {setarObj (a)}}label="Objetivo" theme={theme}/>
+          <Button onPress={cadastrar} mode="contained" style={telaCadastro.button} theme={theme}>Cadastar</Button>
+               </Modal>
+            </Portal>
+
             <View style={[styles.container, props.style]}>
             <TouchableWithoutFeedback onPress={()=> alert('Pesquisar Livros')}>
             <Animated.View style={[styles.button, styles.submenu, searchBook ]}>    
@@ -156,25 +163,29 @@ export default function FabButon (props) {
             </Animated.View>
             </TouchableWithoutFeedback>
             
-            <TouchableWithoutFeedback onPress={()=> alert('Adicionar Livros')}>
+            <TouchableWithoutFeedback onPress={showModal}>
             <Animated.View style={[styles.button, styles.submenu, addBook]}>  
             <Icon name="post-add" size={24} color="#FFF" />  
             </Animated.View>
             </TouchableWithoutFeedback>
            
-            <TouchableWithoutFeedback onPress={toggleMenu}>
-                <Animated.View style={[styles.button, styles.menu, rotation]}>    
+            <TouchableWithoutFeedback onPress={toggleMenu} >
+                <Animated.View  style={[styles.button, styles.menu, rotation]}>    
                     <Icon name="add" size={24} color="#FFF" />
                     
                 </Animated.View>
             </TouchableWithoutFeedback>
-            
             </View>
+            </Provider> 
+
+
     
 </React.Fragment>
         );
     }
 }
+
+
 
 
 const styles = StyleSheet.create({
