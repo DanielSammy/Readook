@@ -1,21 +1,24 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { View, StyleSheet, Alert, BackHandler, SafeAreaView } from 'react-native'
 import { CommonActions } from '@react-navigation/native'
-import { HeaderBackButton } from '@react-navigation/stack'
-import { Avatar, Card, TextInput, Button, Text, } from 'react-native-paper'
-import { GiftedChat, Day, Send } from 'react-native-gifted-chat'
+import { HeaderBackButton, HeaderTitle } from '@react-navigation/stack'
+import { Card, TextInput, Button, Text, } from 'react-native-paper'
+import { GiftedChat, Day, Send, Avatar } from 'react-native-gifted-chat'
 import Global from '../Global'
 import { socket } from '../../../services/socket'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
+import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers'
+import { AvatarImage } from './styles'
 
 
 const ChatMensagem = ({navigation, route}) => {
   const locale = dayjs.locale('pt-br')
-  const codigoChat = route.params.chatCodigo;
-  const nomeUsuario = route.params.name;
+  const codigoChat = route.params.chatCodigo
+  const nomeUsuario = route.params.name
   const userDest = route.params.codigoDest
-  const [ onLoad,setOnLoad ] = useState(true);
+  const userAvatar = route.params.avatar
+  const [ onLoad,setOnLoad ] = useState(true)
   const puxaUltimasMensagens = async () => {
     await fetch(`http://179.221.167.148:8082/chatMensagens/${codigoChat}`)
     .then(response => response.json())
@@ -47,12 +50,16 @@ const ChatMensagem = ({navigation, route}) => {
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: nomeUsuario === '' ? 'No title' : nomeUsuario,
-      headerLeft:() => (<HeaderBackButton
+      title: nomeUsuario === '' ? 'No title' : `        ${nomeUsuario}`,
+      headerLeft:() => (<View style={{display: 'flex', flexDirection: 'row'}}><HeaderBackButton
         onPress={() => backAction()}
         title="Info"
         tintColor="#fff"
-      />),
+      />
+      <AvatarImage source={{uri: userAvatar}}/>
+      </View>
+      ),
+      
     });
   }, [navigation, nomeUsuario]);
 

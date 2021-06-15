@@ -42,7 +42,8 @@ const Chat = ({route, navigation}) => {
         navigation.navigate('ChatMensagem', {
             chatCodigo: chat._id,
             codigoDest: chat.user._id,
-            name: chat.user.name})
+            name: chat.user.name,
+            avatar: chat.user.avatar})
       }
     
       useEffect(() => {
@@ -57,8 +58,8 @@ const Chat = ({route, navigation}) => {
       },[])
     
     return (
-        <SafeAreaView>
-            <ScrollView>
+        <SafeAreaView style={{backgroundColor: '#daebeb', height: '100%'}}>
+            <ScrollView style={{backgroundColor: '#daebeb'}}>
             {chats.map((chat) => (
                 <ChatContainer key={chat._id}>
                     <ImageContainer>

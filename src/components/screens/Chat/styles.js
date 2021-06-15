@@ -6,7 +6,7 @@ export const ChatContainer = styled.View`
     width: 100%;
     height: 70px;
     margin-top: 5px;
-    background-color: aliceblue;
+    background-color: #cecece;
 `
 export const ImageContainer = styled.View`
     width:17%;
