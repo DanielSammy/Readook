@@ -97,7 +97,20 @@ export const insereNovaMensagem = async (chatCodigo, usrRem, usrDes, datahora, m
   })
 }
 
+export const addUser = async (name, email, senha, dataNasc, cpf, fone) => {
+  return new Promise((resolve, reject) => {
+    connection.query(`INSERT INTO usuario (usr_nomecompleto, usr_email, usr_senha, usrdtnascimento, usr_cpf, usr_fone)
+     values ('${name}','${email}','${senha}','${dataNasc}', '${cpf}', '${fone}' ) `, (err, results) => {
+       if (err) {
+         return reject(err)
+       }
+       resolve(results);
+     })
+  })
+}
+
 export default {
+  addUser,
   consultaUsuario,
   consultaChat,
   consultaChatEntreUsuarios,

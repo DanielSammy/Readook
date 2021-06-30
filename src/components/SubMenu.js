@@ -153,14 +153,14 @@ useEffect(() => {
                     <TextInput Value="" key='3' onChangeText={(a)=> {setarEmail (a)}} label="Email" theme={theme}/> 
                     <TextInput Value="" key='4' onChangeText={(a)=> {setarObj (a)}}label="Objetivo" theme={theme}/>
           <Button onPress={cadastrar} mode="contained" style={telaCadastro.button} theme={theme}>Cadastar</Button>
-               </Modal>
-            </Portal>
-
-            <View style={[styles.container, props.style]}>
-            <TouchableWithoutFeedback onPress={()=> alert('Pesquisar Livros')}>
-            <Animated.View style={[styles.button, styles.submenu, searchBook ]}>    
-            <Icon name="search" size={24} color="#FFF" />
-            </Animated.View>
+          </Modal>
+          </Portal>
+          
+          <View style={[styles.container, props.style]}>
+          <TouchableWithoutFeedback onPress={()=> alert('Pesquisar Livros')}>
+          <Animated.View style={[styles.button, styles.submenu, searchBook ]}>    
+          <Icon name="search" size={24} color="#FFF" />
+          </Animated.View>
             </TouchableWithoutFeedback>
             
             <TouchableWithoutFeedback onPress={showModal}>
@@ -170,15 +170,15 @@ useEffect(() => {
             </TouchableWithoutFeedback>
            
             <TouchableWithoutFeedback onPress={toggleMenu} >
-                <Animated.View  style={[styles.button, styles.menu, rotation]}>    
-                    <Icon name="add" size={24} color="#FFF" />
-                    
-                </Animated.View>
+            <Animated.View  style={[styles.button, styles.menu, rotation]}>    
+            <Icon name="add" size={24} color="#FFF" />
+            
+            </Animated.View>
             </TouchableWithoutFeedback>
             </View>
             </Provider> 
-
-
+            
+            
     
 </React.Fragment>
         );

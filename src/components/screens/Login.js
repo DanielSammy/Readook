@@ -14,7 +14,7 @@ export const LoginScreen = (props) =>{
    const Cadastro = () => props.navigation.navigate("Cadastro")
    
    const login = async (email, senha) => {
-      const results = await fetch(`http://179.221.167.148:8082/usuario/'${email}'`)
+      const results = await fetch(`http://192.168.0.27:8082/usuario/'${email}'`)
       .then(response => response.json())
       if (results.length == 0) {
          alert('Usuário Não existe')

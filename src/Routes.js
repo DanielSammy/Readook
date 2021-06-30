@@ -57,6 +57,18 @@ app.post('/chatMensagens/novaMensagem', async (req, res) => {
   res.send(results)
 })
 
+app.post('/user/cadastro'), async (req, res) => {
+  const informacaoInsert = req.body[0]
+  const name = informacaoInsert.name
+  const email = informacaoInsert.email
+  const senha = informacaoInsert.senha
+  const dataNasc = informacaoInsert.dataNasc
+  const cpf = informacaoInsert.cpf
+  const fone = informacaoInsert.fone
+  console.log(req.body)
+  console.log(informacaoInsert)
+}
+
 io.on('connection',(socket) => {
   console.log('conectou')
   socket.on('chatMensagem', data => {
