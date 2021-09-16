@@ -16,10 +16,9 @@ Um APP que integra estudantes de diversas áreas e níveis sócio-econômicos e 
 # Requisitos funcionais
 
 # Tecnologias usadas
-- [Flutter](https://flutter.dev/)
 - [Node.js](https://nodejs.org/en/)
-- [React](https://pt-br.reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
+- [React-Native](https://reactnative.dev/)
+- [JavaScript](https://www.javascript.com/)
 
 # Contribuição
 
@@ -30,6 +29,7 @@ Um APP que integra estudantes de diversas áreas e níveis sócio-econômicos e 
 [Loyanne](https://github.com/Loyanner)  
 [Lucas](https://github.com/etruscodb)  
 [Daniel](https://github.com/Danielsammy)  
+[Otávio](https://github.com/otavioguisilva)
 
 # Licença
 Este projeto está licenciado sob a licença freeware. Para mais informações, acesse [LICENSE.md](LICENSE.md)
