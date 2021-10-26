@@ -113,7 +113,7 @@ const ChatMensagem = ({navigation, route}) => {
     const informacaoInsert = newMessages
     informacaoInsert[0].chatCodigo = codigoChat
     informacaoInsert[0].usrDest = userDest
-    const response = await fetch('http://179.221.167.148:8082/chatMensagens/novaMensagem', {
+    const response = await fetch('http://192.168.0.47:8082/chatMensagens/novaMensagem', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',

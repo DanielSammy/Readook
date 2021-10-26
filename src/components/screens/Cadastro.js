@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {  SafeAreaView, ScrollView, View} from 'react-native'
-import {Button, Appbar, TextInput} from 'react-native-paper'
+import {Button, Appbar, TextInput, TextInputMask} from 'react-native-paper'
 import { telaCadastro } from '../Estilo'
 import { theme } from '../PageStyle'
 
@@ -41,8 +41,8 @@ export const Cadastro = () => {
                 <ScrollView>
                     <View theme={theme} style={telaCadastro.pagcad}>
                     <TextInput label="Name" onChangeText={name => setName(name)} value={name}theme={theme}/>
-                    <TextInput label="Data Nascimento" onChangeText={ dataNasc => setDataNasc(dataNasc)} value={dataNasc} theme={theme}/>
-                    <TextInput label="CPF" onChangeText={ cpf=> setCpf(cpf)} value={cpf}theme={theme}/>
+                    <TextInput label="Data Nascimento" keyboardType="number-pad" onChangeText={ dataNasc => setDataNasc(dataNasc)} value={dataNasc} theme={theme}/>
+                    <TextInput label="CPF" type={'cpf'} keyboardType="number-pad" onChangeText={ cpf=> setCpf(cpf)} value={cpf} theme={theme}/>
                     <TextInput label="Email"  onChangeText={email => setEmail(email)} value={email} keyboardType="email-address" theme={theme}/>
                     <TextInput label="Senha" onChangeText={senha => setSenha(senha)} value={senha} secureTextEntry={true} theme={theme}  right={<TextInput.Icon name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
                     <TextInput label="Confirmar senha" secureTextEntry={true} theme={theme} right={<TextInput.Icon name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
