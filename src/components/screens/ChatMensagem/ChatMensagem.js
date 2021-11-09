@@ -3,7 +3,7 @@ import { View, StyleSheet, Alert, BackHandler, SafeAreaView } from 'react-native
 import { CommonActions } from '@react-navigation/native'
 import { HeaderBackButton, HeaderTitle } from '@react-navigation/stack'
 import { Card, TextInput, Button, Text, } from 'react-native-paper'
-import { GiftedChat, Day, Send, Avatar } from 'react-native-gifted-chat'
+import { GiftedChat, Day, Send, Avatar, InputToolbar } from 'react-native-gifted-chat'
 import Global from '../Global'
 import { socket } from '../../../services/socket'
 import dayjs from 'dayjs'
@@ -136,7 +136,12 @@ const ChatMensagem = ({navigation, route}) => {
 
   const renderSend = (props) => {
     return (
-      <Send {...props} textStyle={{ color: '#002244' }} label={'Enviar'} />
+      <Send {...props} textStyle={{ color: '#002244' }} label={Global.lingp ? 'Enviar' : 'Send'} />
+    )
+  }
+  const renderInputToolbar = (props) => {
+    return (
+      <InputToolbar {...props} placeholder={Global.lingp ? "Insira sua Mensagem" : "Type a Message"}/>
     )
   }
 
@@ -154,7 +159,9 @@ const ChatMensagem = ({navigation, route}) => {
       messages={(messages)} 
       onSend={onSend}
       timeFormat={"HH:mm"}
-      renderAvatar={null}/>
+      renderAvatar={null}
+      renderInputToolbar={renderInputToolbar}
+      />
   )
 }
 

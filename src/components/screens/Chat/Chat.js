@@ -11,6 +11,12 @@ import Global from '../Global'
 
 
 const Chat = ({route, navigation}) => {
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+          title: Global.lingp ? 'Mensagens' : "Messages",
+        });
+      }, [navigation, Global.lingp])
+
     const [ chats, setChats ] = useState([])
     const [ onLoad, setOnLoad ] = useState(true)
     const carregaBatePapo = async (usuario) => {

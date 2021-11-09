@@ -13,7 +13,7 @@ export default function Profile({navigation}) {
 
    React.useLayoutEffect(() => {
       navigation.setOptions({
-        title: Global.user.usrNomeCompleto === '' ? 'Perfil' : Global.user.usrNomeCompleto,
+        title: Global.user.usrNomeCompleto === '' ? (Global.lingp ? 'Perfil' : "Profile") : Global.user.usrNomeCompleto,
       });
     }, [navigation, Global.user.usrNomeCompleto]);
 
@@ -27,11 +27,11 @@ export default function Profile({navigation}) {
       <Icon name="mail" size={25} style={styles.icon}/> 
 </View>
 <View>
-      <Text style={styles.Perfil}>Telefone: {Global.user.usrFone}</Text>
+      <Text style={styles.Perfil}>{Global.lingp? "Telefone" : "Phone Number"}: {Global.user.usrFone}</Text>
       <Icon name="phone" size={25} style={styles.icon}/> 
 </View>
 <View>
-      <Text style={styles.Perfil}>Localização: </Text>
+      <Text style={styles.Perfil}>{Global.lingp ? "Localização" : "Localization"}: </Text>
       <Icon name="map" size={25} style={styles.icon}/> 
 </View>
       </SafeAreaView>      

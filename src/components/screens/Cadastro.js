@@ -25,7 +25,7 @@ export const Cadastro = () => {
         user.cpf = cpf
         user.fone = fone
         console.log( JSON.stringify(user))
-        const response = await fetch('http://192.168.0.27:8082/user/cadastro', {
+        const response = await fetch('http://179.221.167.148:8082/user/cadastro', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -42,13 +42,13 @@ export const Cadastro = () => {
                 <ScrollView>
                     <View theme={theme} style={telaCadastro.pagcad}>
                     <TextInput label={Global.lingp ? "Nome" : "Name"} onChangeText={name => setName(name)} value={name}theme={theme}/>
-                    <TextInput label="Data Nascimento" keyboardType="number-pad" onChangeText={ dataNasc => setDataNasc(dataNasc)} value={dataNasc} theme={theme}/>
-                    <TextInput label="CPF" type={'cpf'} keyboardType="number-pad" onChangeText={ cpf=> setCpf(cpf)} value={cpf} theme={theme}/>
+                    <TextInput label={Global.lingp ? "Data Nascimento" : "Birthday"} keyboardType="number-pad" onChangeText={ dataNasc => setDataNasc(dataNasc)} value={dataNasc} theme={theme}/>
+                    <TextInput label={Global.lingp ?"CPF" : "SSN"} type={'cpf'} keyboardType="number-pad" onChangeText={ cpf=> setCpf(cpf)} value={cpf} theme={theme}/>
                     <TextInput label="Email"  onChangeText={email => setEmail(email)} value={email} keyboardType="email-address" theme={theme}/>
-                    <TextInput label="Senha" onChangeText={senha => setSenha(senha)} value={senha} secureTextEntry={true} theme={theme}  right={<TextInput.Icon name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
-                    <TextInput label="Confirmar senha" secureTextEntry={true} theme={theme} right={<TextInput.Icon name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
-                    <TextInput label="Telefone" onChangeText={ fone => setFone(fone)} value={fone} keyboardType="phone-pad" theme={theme}/>
-                    <Button  mode="contained" onPress={() => insertUser(name, dataNasc, cpf,email,senha,fone)} style={telaCadastro.button} theme={theme}>Finalizar Cadastro</Button>
+                    <TextInput label={Global.lingp ? "Senha" : "Password" } onChangeText={senha => setSenha(senha)} value={senha} secureTextEntry={true} theme={theme}  right={<TextInput.Icon name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
+                    <TextInput label={Global.lingp ? "Confirmar senha" : "Confirm Password"} secureTextEntry={true} theme={theme} right={<TextInput.Icon name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
+                    <TextInput label={Global.lingp ? "Telefone" : "Phone Number"} onChangeText={ fone => setFone(fone)} value={fone} keyboardType="phone-pad" theme={theme}/>
+                    <Button  mode="contained" onPress={() => insertUser(name, dataNasc, cpf,email,senha,fone)} style={telaCadastro.button} theme={theme}>{Global.lingp? "Finalizar Cadastro" : "Sign Up"}</Button>
                     </View>
                 </ScrollView>
            </SafeAreaView>

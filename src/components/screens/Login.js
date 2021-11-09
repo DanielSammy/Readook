@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {  SafeAreaView, View } from 'react-native'
 import { Avatar, Card, TextInput, Button, } from 'react-native-paper'
 import { loginStyle, telaCadastro } from '../Estilo'
@@ -9,6 +9,7 @@ import Global from './Global'
 export const LoginScreen = (props) =>{
    const [ email, setEmail ] = useState('')
    const [ senha, setSenha ] = useState('')
+   const [ secureText, setSecureText ] = useState(true)
    const [ lingp, setLing] = useState(true)
 
    const alterLingp = () => {
@@ -20,7 +21,7 @@ export const LoginScreen = (props) =>{
    const Cadastro = () => props.navigation.navigate("Cadastro")
    
    const login = async (email, senha) => {
-      const results = await fetch(`http://192.168.0.27:8082/usuario/'${email}'`)
+      const results = await fetch(`http://179.221.167.148:8082/usuario/'${email}'`)
       .then(response => response.json())
       if (results.length == 0) {
          alert('Usuário Não existe')
@@ -43,6 +44,10 @@ export const LoginScreen = (props) =>{
       Global.user=usrLogando
       Principal()
    }
+
+   useEffect(() => {
+      Global.lingp = true
+   },)
        return (
            
            <SafeAreaView style={loginStyle.content}>
@@ -50,13 +55,13 @@ export const LoginScreen = (props) =>{
            <Card>
            <Avatar.Image size={75} source={require('../Img/logoR.png')}
            style={loginStyle.avatar}/>
-           <Button theme={theme} onPress={() => alterLingp }>teste</Button>
+           <Button theme={theme} onPress={alterLingp}>teste</Button>
           <Card.Content>
-          <TextInput label={lingp ? 'Email' : 'Andress'} onChangeText={email => setEmail(email)} theme={theme} keyboardType="email-address" style={loginStyle.cardLabel}></TextInput>
-          <TextInput label="Senha" onChangeText={senha => setSenha(senha)} theme={theme} secureTextEntry={true} style={loginStyle.cardLabel} right={<TextInput.Icon name='eye-off-outline' color={telaCadastro.icon.color}/>}></TextInput>
-          <Button uppercase={false} theme={theme} >Recuperar Senha</Button>
+          <TextInput label="Email" onChangeText={email => setEmail(email)} theme={theme} keyboardType="email-address" style={loginStyle.cardLabel}></TextInput>
+          <TextInput label={lingp ? "Senha" : "Password"} onChangeText={senha => setSenha(senha)} theme={theme} secureTextEntry={secureText} style={loginStyle.cardLabel} right={<TextInput.Icon onPress={() => setSecureText(!secureText)} name='eye-off-outline' color={telaCadastro.icon.color}/>}></TextInput>
+          <Button uppercase={false} theme={theme}>{lingp ? "Recuperar Senha" : "Password Retrieve"}</Button>
           <Button mode="contained" style={loginStyle.cardButton} onPress={() => login(email, senha)}>Login</Button>
-          <Button uppercase={false} theme={theme} onPress={Cadastro} >Cadastre-se</Button>
+          <Button uppercase={false} theme={theme} onPress={Cadastro} >{lingp ? "Cadastre-se" : "Create new account"}</Button>
           </Card.Content>
           </Card>
           </View>
