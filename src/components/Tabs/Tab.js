@@ -3,7 +3,7 @@ import { Container, TabsContainer, TabItem, TabText  } from './style'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
 import {  TouchableNativeFeedback } from 'react-native';
-
+import Global from '../screens/Global'
 
 
 
@@ -16,28 +16,28 @@ return(
             <TouchableNativeFeedback onPress={()=>navigation.navigate('Profile')}>
                 <TabItem >
                     <Icon name="person" size={24} color="#FFF"/>
-                        <TabText>Meu Perfil</TabText>
+                        <TabText>{Global.lingp ? "Meu Perfil" : "Profile"}</TabText>
                 </TabItem>
             </TouchableNativeFeedback> 
 
             <TouchableNativeFeedback onPress={()=>navigation.navigate('Livros')} >  
                 <TabItem>
                     <Icon name="auto-stories" size={24} color="#FFF"/>
-                        <TabText>Biblioteca</TabText>
+                        <TabText>{ Global.lingp ? "Biblioteca" : "Library" }</TabText>
                 </TabItem>
             </TouchableNativeFeedback>
 
             <TouchableNativeFeedback onPress={() => navigation.navigate('Chat')}>
                 <TabItem>                
                     <Icon name="chat" size={24} color="#FFF"/>
-                        <TabText>Bate Papo</TabText>
+                        <TabText>{ Global.lingp ? "Bate Papo" : "Chat" }</TabText>
                 </TabItem>
             </TouchableNativeFeedback>
 
             <TouchableNativeFeedback onPress={() => navigation.navigate('Maps')}>
                 <TabItem>
                     <Icon name="pin-drop" size={24} color="#FFF" />
-                        <TabText>Localizar no mapa</TabText>
+                        <TabText>{ Global.lingp ? "Localizar no mapa" : "Map Localization" }</TabText>
                 </TabItem>
             </TouchableNativeFeedback>
 

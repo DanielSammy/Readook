@@ -1,11 +1,17 @@
 import React from 'react'
 import FabButton from '../SubMenu';
 import { View, StyleSheet } from 'react-native';
+import Global from './Global'
 
 
 
 
-export default function Livro(){
+export default function Livro({navigation}){
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: Global.lingp ? 'Libros' : "Books",
+    });
+  }, [navigation, Global.lingp])
 
   return (
     <View style={styles.container}>
