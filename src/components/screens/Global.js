@@ -1,5 +1,6 @@
 const Global = {
-  user : {}
+  user : {},
+  lingp: true
 }
 
 export default Global
