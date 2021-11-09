@@ -9,6 +9,12 @@ import Global from './Global'
 export const LoginScreen = (props) =>{
    const [ email, setEmail ] = useState('')
    const [ senha, setSenha ] = useState('')
+   const [ lingp, setLing] = useState(true)
+
+   const alterLingp = () => {
+      setLing(!lingp)
+      Global.lingp = !lingp
+   }
 
    const Principal =() => props.navigation.navigate("Principal")  
    const Cadastro = () => props.navigation.navigate("Cadastro")
@@ -44,8 +50,9 @@ export const LoginScreen = (props) =>{
            <Card>
            <Avatar.Image size={75} source={require('../Img/logoR.png')}
            style={loginStyle.avatar}/>
+           <Button theme={theme} onPress={() => alterLingp }>teste</Button>
           <Card.Content>
-          <TextInput label="Email" onChangeText={email => setEmail(email)} theme={theme} keyboardType="email-address" style={loginStyle.cardLabel}></TextInput>
+          <TextInput label={lingp ? 'Email' : 'Andress'} onChangeText={email => setEmail(email)} theme={theme} keyboardType="email-address" style={loginStyle.cardLabel}></TextInput>
           <TextInput label="Senha" onChangeText={senha => setSenha(senha)} theme={theme} secureTextEntry={true} style={loginStyle.cardLabel} right={<TextInput.Icon name='eye-off-outline' color={telaCadastro.icon.color}/>}></TextInput>
           <Button uppercase={false} theme={theme} >Recuperar Senha</Button>
           <Button mode="contained" style={loginStyle.cardButton} onPress={() => login(email, senha)}>Login</Button>

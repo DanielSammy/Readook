@@ -3,6 +3,7 @@ import {  SafeAreaView, ScrollView, View} from 'react-native'
 import {Button, Appbar, TextInput, TextInputMask} from 'react-native-paper'
 import { telaCadastro } from '../Estilo'
 import { theme } from '../PageStyle'
+import Global from './Global'
 
 
 
@@ -40,7 +41,7 @@ export const Cadastro = () => {
            <SafeAreaView style={{top: '20%',}} >
                 <ScrollView>
                     <View theme={theme} style={telaCadastro.pagcad}>
-                    <TextInput label="Name" onChangeText={name => setName(name)} value={name}theme={theme}/>
+                    <TextInput label={Global.lingp ? "Nome" : "Name"} onChangeText={name => setName(name)} value={name}theme={theme}/>
                     <TextInput label="Data Nascimento" keyboardType="number-pad" onChangeText={ dataNasc => setDataNasc(dataNasc)} value={dataNasc} theme={theme}/>
                     <TextInput label="CPF" type={'cpf'} keyboardType="number-pad" onChangeText={ cpf=> setCpf(cpf)} value={cpf} theme={theme}/>
                     <TextInput label="Email"  onChangeText={email => setEmail(email)} value={email} keyboardType="email-address" theme={theme}/>
