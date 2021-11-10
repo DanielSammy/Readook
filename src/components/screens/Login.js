@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Alert } from 'react-native'
 import {  SafeAreaView, View } from 'react-native'
 import { Avatar, Card, TextInput, Button, } from 'react-native-paper'
 import { loginStyle, telaCadastro } from '../Estilo'
@@ -20,16 +21,61 @@ export const LoginScreen = (props) =>{
    const Principal =() => props.navigation.navigate("Principal")  
    const Cadastro = () => props.navigation.navigate("Cadastro")
    
-   const login = async (email, senha) => {
-      const results = await fetch(`http://179.221.167.148:8082/usuario/'${email}'`)
+   const login = async (emailLogin, senhaLogin) => {
+      const alert = {}
+      if (Global.lingp) {
+         alert.title = 'Dados inválidos'
+      } else {
+         alert.title = 'Invalid Data'
+      }
+      if (emailLogin.length === 0 || !emailLogin.match(/@[a-z0-9]+\.[a-z0-9]+/i) ) {
+         if (Global.lingp) {
+            alert.message = 'Digite um email válido'
+         } else {
+            alert.message = 'Enter a valid email'
+         }
+         Alert.alert(alert.title,alert.message)
+         return ''
+      }
+      if (senhaLogin.length === 0) {
+         if (Global.lingp) {
+            alert.message = 'Digite uma senha'
+         } else {
+            alert.message = 'Enter a valid password'
+         }
+         Alert.alert(alert.title,alert.message)
+         return ''
+      }
+      const results = await fetch(`http://179.221.167.148:8082/usuario/'${emailLogin}'`)
       .then(response => response.json())
+      .catch(err => {
+         const error = {}
+         if (Global.lingp) {
+            error.title = 'Erro de conexão'
+            error.message = 'Falha na requisição'  
+         } else {
+            error.title = 'Connection error'
+            error.message = err.message
+         }
+         Alert.alert(error.title,error.message)
+      })
       if (results.length == 0) {
-         alert('Usuário Não existe')
+         if (Global.lingp) {
+            alert.message = 'Usuário não existe'
+         } else {
+            alert.message = 'User does not exist'
+         }
+         Alert.alert(alert.title,alert.message)
          return ''
       }
       const usrSenha = results[0].usr_senha
-      if (usrSenha != senha) {
-         alert('Senha inválida')
+      if (usrSenha != senhaLogin) {
+         if (Global.lingp) {
+            alert.message = 'Senha inválida'
+         } else {
+            alert.message = 'Invalid Password'
+         }
+         Alert.alert(alert.title,alert.message)
          return ''
       }
       const usrLogando = {
