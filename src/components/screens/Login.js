@@ -45,9 +45,6 @@ export const LoginScreen = (props) =>{
       Principal()
    }
 
-   useEffect(() => {
-      Global.lingp = true
-   },)
        return (
            
            <SafeAreaView style={loginStyle.content}>
