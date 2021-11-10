@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Animated, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { Avatar, Card, IconButton, Portal, Modal,TextInput, Provider, Button} from 'react-native-paper';
+import { Avatar, Card, IconButton, Portal, Modal,TextInput, Provider, Button, Text} from 'react-native-paper';
 import { card, theme } from './PageStyle';
 import axios from 'axios'
 import { telaCadastro } from './Estilo';
@@ -101,12 +101,11 @@ useEffect(() => {
   
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
-    const containerStyle = {backgroundColor: 'white', padding: 100};
+    const containerStyle = {backgroundColor: 'white', padding: 100, borderRadius: 10 };
     // Fim do Modal
 
     const [autor, setAutor] = useState(undefined)
     const [nome, setNome ] = useState(undefined)
-    const [email, setEmail ] = useState(undefined)
     const [objetivo, setObjetivo ] = useState(undefined)
 
     function setarAutor (e){
@@ -130,7 +129,7 @@ useEffect(() => {
         axios.post('https://meuservidordetrabalho.herokuapp.com/cadastro', {
         nome: nome,
             autor:autor,
-            email_contato:email,
+            email_contato:Global.user.usrEmail,
             objetivo:objetivo
             
         })
@@ -158,10 +157,13 @@ useEffect(() => {
 </ScrollView>
                 <Provider>
             <Portal>
-               <Modal style={{padding: 10 }} visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+               <Modal style={{padding: 10}} visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+                   {Global.lingp ? 
+                   <Text style={{fontSize:23, marginTop:-90, marginLeft:-9, paddingBottom:30, textAlign:"center"}} theme={theme}>{"Inserir Novo Livro"}</Text>
+                    : <Text style={{fontSize:23, marginTop:-90, paddingBottom:30, textAlign:"center"}} theme={theme}>{"Insert new Book"}</Text>
+                    }
                     <TextInput Value="" key='1' onChangeText={(a)=> {setarNome (a)}} label={Global.lingp ? "Nome do Livro" : "Book Name"} theme={theme}/>
                     <TextInput Value="" key='2' onChangeText={(a)=> {setarAutor (a)}} label={Global.lingp ? "Autor do Livro" : "Book Author"} theme={theme}/>
-                    <TextInput Value="" key='3' onChangeText={(a)=> {setarEmail (a)}} label="Email" theme={theme}/> 
                     <TextInput Value="" key='4' onChangeText={(a)=> {setarObj (a)}}label={Global.lingp ? "Objetivo" : "For"} theme={theme}/>
           <Button onPress={cadastrar} mode="contained" style={telaCadastro.button} theme={theme}>{Global.lingp ? "Cadastar" : "Insert"}</Button>
           </Modal>
