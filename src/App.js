@@ -19,7 +19,7 @@ function MyStack() {
     <Stack.Navigator>
     <Stack.Screen name="Login" component={LoginScreen} options ={{headerTransparent: true, title:''}}/>
     <Stack.Screen name="Cadastro" component={Cadastro} options={{headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/>
-    <Stack.Screen  name="Principal" component={Home} options={{headerTransparent: true,title:'',}}/>
+    <Stack.Screen name="Principal" component={Home} options={{headerTransparent: true,title:'',}}/>
     <Stack.Screen name="Profile" component={Profile} options={{headerTransparent: false, title:'Daniel Sammy', headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/> 
     <Stack.Screen name="Livros" component={Livro} options={{title: Global.lingp ? "Livros" : "Books" ,headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/>
     <Stack.Screen name="Chat" component={Chat} options={{title:Global.lingp ? 'Mensagens' : 'Messages', headerStyle:{backgroundColor: '#002244'},headerTintColor: '#fff'}}/>

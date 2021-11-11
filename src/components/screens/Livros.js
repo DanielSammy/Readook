@@ -9,7 +9,7 @@ import Global from './Global'
 export default function Livro({navigation}){
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: Global.lingp ? 'Libros' : "Books",
+      title: Global.lingp ? 'Livros' : "Books",
     });
   }, [navigation, Global.lingp])
 
