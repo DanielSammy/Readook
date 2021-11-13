@@ -10,7 +10,7 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers'
 import { AvatarImage } from './styles'
-
+import PushNotification from 'react-native-push-notification'
 
 const ChatMensagem = ({navigation, route}) => {
   const locale = dayjs.locale('pt-br')
@@ -83,7 +83,21 @@ const ChatMensagem = ({navigation, route}) => {
         console.log('Não é pra ti')
       }
     })
-    return () => socket.off('chatMensagem')
+    socket.on('notifyChatMensagem', data => {
+      const url = `${data.userRem.avatar}`
+      if (data.userDest !== Global.user.usrCodigo) {
+        PushNotification.localNotification({
+          channelId: 'readook-channel',
+          title: data.userRem.name,
+          message: data.message,
+          largeIconUrl: String(url)
+        })
+        console.log(String(url))
+      }
+    })
+    return () => {
+      socket.off('chatMensagem')
+      socket.off('notifyChatMensagem')}
   },[messages])
 
   
@@ -113,7 +127,7 @@ const ChatMensagem = ({navigation, route}) => {
     const informacaoInsert = newMessages
     informacaoInsert[0].chatCodigo = codigoChat
     informacaoInsert[0].usrDest = userDest
-    const response = await fetch('http://192.168.0.47:8082/chatMensagens/novaMensagem', {
+    const response = await fetch(`http://${Global.ipBancoDados}:${Global.portaBancoDados}/chatMensagens/novaMensagem`, {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -128,7 +142,8 @@ const ChatMensagem = ({navigation, route}) => {
     await setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages))
     const data = {
       userDest : userDest,
-      message : newMessages
+      message : newMessages,
+
     }
     await mandaMensagemBD(newMessages)
     await socket.emit('chatMensagem', data)

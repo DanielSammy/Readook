@@ -5,6 +5,7 @@ import { Avatar, Card, TextInput, Button, } from 'react-native-paper'
 import { loginStyle, telaCadastro } from '../Estilo'
 import { theme } from '../PageStyle'
 import Global from './Global'
+import PushNotification from 'react-native-push-notification'
 
 
 export const LoginScreen = (props) =>{
@@ -13,9 +14,27 @@ export const LoginScreen = (props) =>{
    const [ secureText, setSecureText ] = useState(true)
    const [ lingp, setLing] = useState(true)
 
+   const createChannels = () => {
+      PushNotification.createChannel({
+         channelId: 'readook-channel',
+         channelName: 'Readook Channel'
+      })
+   }
+
+   const handleNotification = () => {
+      PushNotification.localNotification({
+         channelId: 'readook-channel',
+         title:"Teste Notificação",
+         message: "Olá você gerou uma notificação",
+         largeIconUrl: 'https://live.staticflickr.com/65535/51249817736_35be5e3f7e_c.jpg'
+      })
+   }
+
    const alterLingp = () => {
       setLing(!lingp)
       Global.lingp = !lingp
+      console.log(props.route.name)
+      handleNotification()
    }
 
    const Principal =() => props.navigation.navigate("Principal")  
@@ -46,7 +65,7 @@ export const LoginScreen = (props) =>{
          Alert.alert(alert.title,alert.message)
          return ''
       }
-      const results = await fetch(`http://179.221.167.148:8082/usuario/'${emailLogin}'`)
+      const results = await fetch(`http://${Global.ipBancoDados}:${Global.portaBancoDados}/usuario/'${emailLogin}'`)
       .then(response => response.json())
       .catch(err => {
          const error = {}
@@ -91,6 +110,10 @@ export const LoginScreen = (props) =>{
       Principal()
    }
 
+   useEffect(() => {
+      createChannels();
+   })
+
        return (
            
            <SafeAreaView style={loginStyle.content}>
@@ -112,3 +135,6 @@ export const LoginScreen = (props) =>{
           
        )
     }
+
+
+    

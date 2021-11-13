@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "776481913757",
+    "project_id": "readook-notifications",
+    "storage_bucket": "readook-notifications.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776481913757:android:72aee70ea46954dc058d74",
+        "android_client_info": {
+          "package_name": "com.readbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776481913757-5f53fsduf40524r8d3o295dnn9t9feq0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzJNn8LKqLt_5w5BqNsTqFvduNqg8h0k0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776481913757-5f53fsduf40524r8d3o295dnn9t9feq0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776481913757:android:5ac46e9abb75057b058d74",
+        "android_client_info": {
+          "package_name": "com.readbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776481913757-5f53fsduf40524r8d3o295dnn9t9feq0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzJNn8LKqLt_5w5BqNsTqFvduNqg8h0k0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776481913757-5f53fsduf40524r8d3o295dnn9t9feq0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
