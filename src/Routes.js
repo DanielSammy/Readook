@@ -25,6 +25,12 @@ app.get('/usuario/:emailUsr', async (req, res) => {
   res.json(results)
 })
 
+app.get('/chat/getUsersToChat/:idUsr', async(req, res) => {
+  const usuario = req.params.idUsr
+  const results = await Banco.selectOtherUsers(usuario) 
+  res.send(results);
+})
+
 app.get('/chat/:idUsr', async(req, res) => {
   const usuario = req.params.idUsr
   const results = await Banco.consultaChat(usuario)
@@ -46,7 +52,6 @@ app.get('/chatMensagens/:idChat', async (req, res) => {
 })
 
 app.post('/chatMensagens/novaMensagem', async (req, res) => {
-  console.log(req.body)
   const informacaoInsert = req.body[0]
   const chatCodigo = informacaoInsert.chatCodigo
   const usrRem = informacaoInsert.user._id
@@ -65,8 +70,6 @@ app.post('/user/cadastro'), async (req, res) => {
   const dataNasc = informacaoInsert.dataNasc
   const cpf = informacaoInsert.cpf
   const fone = informacaoInsert.fone
-  console.log(req.body)
-  console.log(informacaoInsert)
 }
 
 io.on('connection',(socket) => {
@@ -74,6 +77,12 @@ io.on('connection',(socket) => {
   socket.on('chatMensagem', data => {
     console.log('Nova Mensagem Chegou', data)
     io.emit('chatMensagem', data)
+    const notification = {}
+    notification.message = data.message[0].text
+    notification.userRem = data.message[0].user
+    notification.userDest = data.userDest
+    notification.chatCodigo = data.message[0].chatCodigo
+    io.emit('notifyChatMensagem', notification)
   })
 })
 

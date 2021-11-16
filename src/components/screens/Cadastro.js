@@ -24,8 +24,7 @@ export const Cadastro = () => {
         user.dataNasc = dataFormat
         user.cpf = cpf
         user.fone = fone
-        console.log( JSON.stringify(user))
-        const response = await fetch('http://179.221.167.148:8082/user/cadastro', {
+        const response = await fetch(`http://${Global.ipBancoDados}:${Global.portaBancoDados}/user/cadastro`, {
             method: 'POST',
             headers: {
               'Accept': 'application/json',

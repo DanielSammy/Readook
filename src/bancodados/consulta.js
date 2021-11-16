@@ -19,6 +19,17 @@ export const consultaUsuario = async (email) => {
   })
 }
 
+export const selectOtherUsers = async (usrCodigo) => {
+  return new Promise ((resolve, reject) => {
+    connection.query(`SELECT * FROM usuario  WHERE usr_codigo <> ${usrCodigo}`, (err, results) => {
+      if (err) {
+        return 
+      }
+      resolve(results)
+    })
+  })
+};
+
 export const consultaChatEntreUsuarios = async (usuarios) => {
   return new Promise((resolve, reject) => {
     connection.query(`SELECT * FROM chat where cha_usuarios = '${usuarios}'`, (err, results) => {
@@ -75,9 +86,6 @@ const converterHoraParaLocal = (data) => {
   novaData.setHours(horas - diferenca)
   if (horas >= 21 && horas <= 23) {
     novaData.setDate(dia)
-    console.log('sim')
-  } else {
-    console.log('nao')
   }
   return novaData
 }
@@ -115,5 +123,6 @@ export default {
   consultaChat,
   consultaChatEntreUsuarios,
   consultaChatMensagens,
-  insereNovaMensagem
+  insereNovaMensagem,
+  selectOtherUsers
 }

@@ -1,3 +1,4 @@
 import io from "socket.io-client";
+import Global from "../components/screens/Global";
 
-export const socket = io('http://179.221.167.148:8082');
+export const socket = io(`http://${Global.ipBancoDados}:${Global.portaBancoDados}`);

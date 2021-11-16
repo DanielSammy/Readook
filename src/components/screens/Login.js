@@ -21,20 +21,9 @@ export const LoginScreen = (props) =>{
       })
    }
 
-   const handleNotification = () => {
-      PushNotification.localNotification({
-         channelId: 'readook-channel',
-         title:"Teste Notificação",
-         message: "Olá você gerou uma notificação",
-         largeIconUrl: 'https://live.staticflickr.com/65535/51249817736_35be5e3f7e_c.jpg'
-      })
-   }
-
    const alterLingp = () => {
       setLing(!lingp)
       Global.lingp = !lingp
-      console.log(props.route.name)
-      handleNotification()
    }
 
    const Principal =() => props.navigation.navigate("Principal")  

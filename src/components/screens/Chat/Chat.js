@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TouchableNativeFeedback } from 'react-native';
-import { View, StyleSheet, Alert, SafeAreaView, ScrollView, Image } from 'react-native'
-import { Avatar, Card, TextInput, Button, Text } from 'react-native-paper'
-import { useNavigation } from '@react-navigation/native';
+import { View, SafeAreaView, ScrollView } from 'react-native'
+import { IconButton, Text } from 'react-native-paper'
 import { ChatContainer, ContainerImage, ImageContainer, TextContainer } from './styles';
-import io from 'socket.io-client'
 import Global from '../Global'
+import { HeaderBackButton } from '@react-navigation/stack';
+
 
 
 
@@ -14,13 +14,34 @@ const Chat = ({route, navigation}) => {
     React.useLayoutEffect(() => {
         navigation.setOptions({
           title: Global.lingp ? 'Mensagens' : "Messages",
+          headerRight:() => (<View style={{display: 'flex', flexDirection: 'row'}}>
+              <IconButton icon="plus" size={24} color="#FFF" onPress={() => goToChatUsuarios()}/>
+            </View>
+            ),
         });
       }, [navigation, Global.lingp])
+
+      const backAction = () => {
+        navigation.dispatch(
+           CommonActions.reset({
+           index: 1,
+           routes:[
+             {name: 'Principal'},
+             {name: 'Chat'},
+           ], 
+         })
+         )
+       return true;
+     };
+
+    const goToChatUsuarios = () => {
+        navigation.navigate('ChatUsuarios')
+    }
 
     const [ chats, setChats ] = useState([])
     const [ onLoad, setOnLoad ] = useState(true)
     const carregaBatePapo = async (usuario) => {
-        await fetch(`http://179.221.167.148:8082/chat/${usuario}`)
+        await fetch(`http://${Global.ipBancoDados}:${Global.portaBancoDados}/chat/${usuario}`)
         .then(response => response.json())
         .then(results => transformChat(results))
     }
@@ -71,8 +92,8 @@ const Chat = ({route, navigation}) => {
                     <ImageContainer>
                         <ContainerImage source={{uri: chat.user.avatar}}/>
                     </ImageContainer>
-                    <TextContainer key={chat._id}>
-                        <TouchableNativeFeedback data-key={chat._id} onPress={() => goToChatMensagem(chat)}>
+                    <TouchableNativeFeedback data-key={chat._id} onPress={() => goToChatMensagem(chat)}>
+                        <TextContainer key={chat._id}>
                             <View style={{display:'flex', flexDirection:'column'}}>
                                 <View style={{display:'flex', flexDirection:'row'}}>
                                     <Text style={{fontWeight:'bold', fontSize:16, marginRight:'auto'}}>
@@ -91,8 +112,8 @@ const Chat = ({route, navigation}) => {
                                     </Text>
                                 </View>
                             </View>
-                        </TouchableNativeFeedback>
-                    </TextContainer>
+                        </TextContainer>
+                    </TouchableNativeFeedback>
                 </ChatContainer>))}
             </ScrollView>
         </SafeAreaView>

@@ -6,6 +6,7 @@ import { LoginScreen } from './components/screens/Login'
 import { Cadastro } from './components/screens/Cadastro'
 import ChatMensagem from './components/screens/ChatMensagem/ChatMensagem'
 import Chat from './components/screens/Chat/Chat'
+import ChatUsuarios from './components/screens/ChatUsuarios/ChatUsuarios'
 import Livro from './components/screens/Livros'
 import Maps from './components/screens/Maps'
 import Profile from './components/screens/Profile'
@@ -23,6 +24,7 @@ function MyStack() {
     <Stack.Screen name="Profile" component={Profile} options={{headerTransparent: false, title:'Daniel Sammy', headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/> 
     <Stack.Screen name="Livros" component={Livro} options={{title: Global.lingp ? "Livros" : "Books" ,headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/>
     <Stack.Screen name="Chat" component={Chat} options={{title:Global.lingp ? 'Mensagens' : 'Messages', headerStyle:{backgroundColor: '#002244'},headerTintColor: '#fff'}}/>
+    <Stack.Screen name="ChatUsuarios" component={ChatUsuarios} options={{ headerStyle:{backgroundColor: '#002244'},headerTintColor: '#fff'}}/>
     <Stack.Screen name="ChatMensagem" component={ChatMensagem} options={{ headerStyle:{backgroundColor: '#002244'},headerTintColor: '#fff'}}/>
     <Stack.Screen name="Maps" component={Maps} options ={{headerTransparent: true, title:''}}/>
     </Stack.Navigator>

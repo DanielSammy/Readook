@@ -1,26 +1,22 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { View, StyleSheet, Alert, BackHandler, SafeAreaView } from 'react-native'
-import { CommonActions } from '@react-navigation/native'
-import { HeaderBackButton, HeaderTitle } from '@react-navigation/stack'
-import { Card, TextInput, Button, Text, } from 'react-native-paper'
-import { GiftedChat, Day, Send, Avatar, InputToolbar } from 'react-native-gifted-chat'
+import { View, BackHandler } from 'react-native'
+import { CommonActions, useNavigation } from '@react-navigation/native'
+import { HeaderBackButton } from '@react-navigation/stack'
+import { GiftedChat, Send, InputToolbar } from 'react-native-gifted-chat'
 import Global from '../Global'
 import { socket } from '../../../services/socket'
-import dayjs from 'dayjs'
-import 'dayjs/locale/pt-br'
-import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers'
 import { AvatarImage } from './styles'
 import PushNotification from 'react-native-push-notification'
 
 const ChatMensagem = ({navigation, route}) => {
-  const locale = dayjs.locale('pt-br')
   const codigoChat = route.params.chatCodigo
   const nomeUsuario = route.params.name
   const userDest = route.params.codigoDest
   const userAvatar = route.params.avatar
   const [ onLoad,setOnLoad ] = useState(true)
+  const navegacao = useNavigation();
   const puxaUltimasMensagens = async () => {
-    await fetch(`http://179.221.167.148:8082/chatMensagens/${codigoChat}`)
+    await fetch(`http://${Global.ipBancoDados}:${Global.portaBancoDados}/chatMensagens/${codigoChat}`)
     .then(response => response.json())
     .then(results => transformMessages(results))
   }
@@ -78,33 +74,25 @@ const ChatMensagem = ({navigation, route}) => {
     }
     socket.on('chatMensagem', data => {
       if (data.userDest == Global.user.usrCodigo) {
+        const codigoChatRecebido = data.message[0].chatCodigo
+        const codigoChatAtual = codigoChat
+        if (codigoChatAtual !== codigoChatRecebido) {
+            return ''
+        }
         handleNewMessage(data.message)
-      } else {
-        console.log('Não é pra ti')
-      }
-    })
-    socket.on('notifyChatMensagem', data => {
-      const url = `${data.userRem.avatar}`
-      if (data.userDest !== Global.user.usrCodigo) {
-        PushNotification.localNotification({
-          channelId: 'readook-channel',
-          title: data.userRem.name,
-          message: data.message,
-          largeIconUrl: String(url)
-        })
-        console.log(String(url))
       }
     })
     return () => {
-      socket.off('chatMensagem')
-      socket.off('notifyChatMensagem')}
+      socket.off('chatMensagem')}
   },[messages])
 
   
     const backAction = () => {
+      const actualIndex = navegacao.dangerouslyGetState().index 
+      const newIndex = actualIndex - 1
        navigation.dispatch(
           CommonActions.reset({
-          index: 1,
+          index: newIndex,
           routes:[
             {name: 'Principal'},
             {name: 'Chat'},
@@ -143,7 +131,6 @@ const ChatMensagem = ({navigation, route}) => {
     const data = {
       userDest : userDest,
       message : newMessages,
-
     }
     await mandaMensagemBD(newMessages)
     await socket.emit('chatMensagem', data)
