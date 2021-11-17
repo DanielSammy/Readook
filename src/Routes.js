@@ -51,6 +51,14 @@ app.get('/chatMensagens/:idChat', async (req, res) => {
   res.send(results)
 })
 
+app.post('/chatMensagens/atualizaMsgNaoLida', async (req, res) => {
+  const informacaoInsert = req.body[0]
+  const chatCodigo = informacaoInsert.chatCodigo
+  const usrDest = informacaoInsert.usrDest
+  const results = await Banco.atualizaMensagemNaoLidas(chatCodigo, usrDest)
+  res.send(results)
+})
+
 app.post('/chatMensagens/novaMensagem', async (req, res) => {
   const informacaoInsert = req.body[0]
   const chatCodigo = informacaoInsert.chatCodigo

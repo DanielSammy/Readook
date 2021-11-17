@@ -5,9 +5,8 @@ import { IconButton, Text } from 'react-native-paper'
 import { ChatContainer, ContainerImage, ImageContainer, TextContainer } from './styles';
 import Global from '../Global'
 import { HeaderBackButton } from '@react-navigation/stack';
-
-
-
+import { theme } from '../../PageStyle';
+import { socket } from '../../../services/socket';
 
 
 const Chat = ({route, navigation}) => {
@@ -46,16 +45,36 @@ const Chat = ({route, navigation}) => {
         .then(results => transformChat(results))
     }
 
+    const converterHoraParaLocal = (data) => {
+        const novaData = new Date(data.getTime()+data.getTimezoneOffset()*60*1000)
+        const diferenca = data.getTimezoneOffset() / 60
+        const horas = data.getHours()
+        const dia = data.getDate()
+        novaData.setHours(horas - diferenca)
+        if (horas >= 21 && horas <= 23) {
+          novaData.setDate(dia)
+        }
+        return novaData
+      }
+
     const transformChat = async (conversas) => {
         await conversas.forEach((conversa) => {criaConversa(conversa)})
     }
 
     const criaConversa = async (conversa) => {
+        const data = converterHoraParaLocal(new Date(conversa.chm_datahora))
+        const stringData = data.toISOString()
+        const dataHoraCorreta = stringData.substr(0,stringData.length - 1)
         const newChat = {};
         newChat._id = conversa.cha_codigo
         newChat.ultimaMensagem = conversa.chm_mensagem
-        newChat.data = `${conversa.chm_datahora.substring(8,10)}/${conversa.chm_datahora.substring(5,7)}/${conversa.chm_datahora.substring(0,4)}`
-        newChat.hora = conversa.chm_datahora.substring(11,16)
+        if (Global.lingp) {
+            newChat.data = `${dataHoraCorreta.substring(8,10)}/${dataHoraCorreta.substring(5,7)}/${dataHoraCorreta.substring(0,4)}`
+        } else {
+            newChat.data = `${dataHoraCorreta.substring(5,7)}/${dataHoraCorreta.substring(8,10)}/${dataHoraCorreta.substring(0,4)}`
+        }
+        newChat.hora = dataHoraCorreta.substring(11,16)
+        newChat.naoLidas = conversa.chm_naolidas
         const user = {}
         user._id = conversa.usr_codigo
         user.avatar= conversa.usr_avatar
@@ -72,6 +91,37 @@ const Chat = ({route, navigation}) => {
             name: chat.user.name,
             avatar: chat.user.avatar})
       }
+
+      const handleNewMessage = (newMessage) => {
+        const getMessages = chats
+        const chatCodigoReceived = newMessage.chatCodigo
+        const chatIndex = getMessages.findIndex(chat => chat._id === chatCodigoReceived)
+        const otherMessage = getMessages.splice(chatIndex,1) 
+        console.log(otherMessage)
+        const newChat = {};
+        newChat._id = newMessage.chatCodigo
+        newChat.ultimaMensagem = newMessage.text
+        newChat.data = `${newMessage.createdAt.substring(8,10)}/${newMessage.createdAt.substring(5,7)}/${newMessage.createdAt.substring(0,4)}`
+        newChat.hora = newMessage.createdAt.substring(11,16)
+        newChat.naoLidas = otherMessage[0].naoLidas + 1
+        const user = {}
+        user._id = newMessage.user._id
+        user.avatar= newMessage.user.avatar
+        user.name= newMessage.user.name
+        newChat.user = user
+        const newMessages = [newChat, ...getMessages]
+        setChats(newMessages)
+      }
+
+      useEffect(() => {
+        socket.on('chatMensagem', data => {
+          if (data.userDest == Global.user.usrCodigo) {
+            handleNewMessage(data.message[0])
+          }
+        })
+        return () => {
+          socket.off('chatMensagem')}
+      },[chats])
     
       useEffect(() => {
         if (onLoad) {
@@ -83,7 +133,7 @@ const Chat = ({route, navigation}) => {
             setOnLoad(true)
         }
       },[])
-    
+
     return (
         <SafeAreaView style={{backgroundColor: '#daebeb', height: '100%'}}>
             <ScrollView style={{backgroundColor: '#daebeb'}}>
@@ -103,12 +153,15 @@ const Chat = ({route, navigation}) => {
                                     {chat.data}
                                     </Text>
                                 </View>
-                                <View style={{display:'flex', flexDirection:'row',paddingTop: 5, paddingLeft:15}}>
+                                <View style={{display:'flex', flexDirection:'row',paddingTop: 5, paddingLeft:5}}>
                                 <Text style={{fontSize:16, marginRight:'auto'}}>
                                     {`  ${chat.ultimaMensagem}`}
-                                    </Text>
+                                </Text>
+                                <Text style={{fontSize:12,padding:5,paddingLeft:0, color:'#ffffff', backgroundColor:'#002244', borderRadius:3, textAlign:'center'}}>
+                                    {`  ${chat.naoLidas} ${Global.lingp? " Não Lidas" : "Unseen"}`}
+                                </Text>
                                     <Text style={{marginLeft:'auto'}}>
-                                    {/* {chat.hora} */}
+                                     {chat.hora} 
                                     </Text>
                                 </View>
                             </View>
