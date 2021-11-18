@@ -7,7 +7,7 @@ import { theme } from '../PageStyle'
 import Global from './Global'
 import PushNotification from 'react-native-push-notification'
 import { ThemeColors } from 'react-navigation'
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
 export const LoginScreen = (props) =>{
@@ -121,7 +121,7 @@ export const LoginScreen = (props) =>{
   </Modal>
               </Portal>
               <View style={{backgroundColor: '#002244'}}>
-            <Icon name="settings-sharp" color="#fff" onPress={showModal} size={35} style={{backgroundColor: '#002244', marginLeft: 'auto', right: 10, top: 3}}/>
+            <Icon name="translate" color="#fff" onPress={showModal} size={35} style={{backgroundColor: '#002244', marginLeft: 'auto', right: 10, top: 3}}/>
               </View>
            <SafeAreaView style={loginStyle.content}>
            <View style={loginStyle.view}>
