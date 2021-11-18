@@ -7,7 +7,7 @@ import { Appbar } from 'react-native-paper'
 export default function Header() {
 return(
     <Container>
-        <Appbar.Action icon="dots-vertical" color= '#fff' onPress={() => {}} />
+        <Appbar.Action style={{marginLeft: 'auto'}} icon="dots-vertical" color= '#fff' onPress={() => {}} />
         <Top>
         <Title style={styles.font}>Readook</Title>
         </Top>

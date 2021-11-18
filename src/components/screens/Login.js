@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Alert } from 'react-native'
 import {  SafeAreaView, View } from 'react-native'
-import { Avatar, Card, TextInput, Button, } from 'react-native-paper'
+import { Avatar, Card, TextInput, Button, Appbar, Portal, Provider, Modal, Text, } from 'react-native-paper'
 import { loginStyle, telaCadastro } from '../Estilo'
 import { theme } from '../PageStyle'
 import Global from './Global'
 import PushNotification from 'react-native-push-notification'
+import { ThemeColors } from 'react-navigation'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 
 export const LoginScreen = (props) =>{
@@ -101,16 +103,31 @@ export const LoginScreen = (props) =>{
 
    useEffect(() => {
       createChannels();
-   })
+   }
+   )
+   const [visible, setVisible] = React.useState(false);
+   const showModal = () => setVisible(true);
+   const hideModal = () => setVisible(false);
+   const containerStyle = {backgroundColor: 'white', padding: 30};
 
-       return (
-           
+   return (
+      <Provider>
+
+        <Portal>
+        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+    <Text style={{color: '#000', display: 'flex', textAlign: 'center', fontSize: 20, top: -15, fontWeight: 'bold'}}>{lingp ? 'Alterar idioma' : 'Change the language'}</Text>
+        <Button theme={theme} onPress={alterLingp} color='#002244' style={{marginLeft: 60, marginRight: 60}}>{Global.lingp ? 'English' : 'Português'}</Button>
+          <Button onPress={hideModal} color= "#fff"  style={{marginTop: 30, marginLeft: 60, marginRight: 60, backgroundColor: '#002244'}}>{lingp ? "Confirmar" : "Confirm" }</Button>
+  </Modal>
+              </Portal>
+              <View style={{backgroundColor: '#002244'}}>
+            <Icon name="settings-sharp" color="#fff" onPress={showModal} size={35} style={{backgroundColor: '#002244', marginLeft: 'auto', right: 10, top: 3}}/>
+              </View>
            <SafeAreaView style={loginStyle.content}>
            <View style={loginStyle.view}>
            <Card>
            <Avatar.Image size={75} source={require('../Img/logoR.png')}
            style={loginStyle.avatar}/>
-           <Button theme={theme} onPress={alterLingp}>teste</Button>
           <Card.Content>
           <TextInput label="Email" onChangeText={email => setEmail(email)} theme={theme} keyboardType="email-address" style={loginStyle.cardLabel}></TextInput>
           <TextInput label={lingp ? "Senha" : "Password"} onChangeText={senha => setSenha(senha)} theme={theme} secureTextEntry={secureText} style={loginStyle.cardLabel} right={<TextInput.Icon onPress={() => setSecureText(!secureText)} name='eye-off-outline' color={telaCadastro.icon.color}/>}></TextInput>
@@ -120,10 +137,7 @@ export const LoginScreen = (props) =>{
           </Card.Content>
           </Card>
           </View>
-          </SafeAreaView>    
-          
+          </SafeAreaView> 
+         </Provider>   
        )
     }
-
-
-    
