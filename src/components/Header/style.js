@@ -10,7 +10,7 @@ export const Container = styled.View`
 export const Top = styled.View`
     flex-direction: row;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 `;
 
 export const Logo = styled.Image`
@@ -18,7 +18,7 @@ export const Logo = styled.Image`
 
 export const Title = styled.Text`
     top: 30px;
-    font-size: 48px;
+    font-size: 45px;
     color: #FFF;
 
     margin-left: 8px;

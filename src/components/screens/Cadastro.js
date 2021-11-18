@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {  SafeAreaView, ScrollView, View} from 'react-native'
-import {Button, Appbar, TextInput, TextInputMask} from 'react-native-paper'
+import {Button, TextInput} from 'react-native-paper'
+import TextInputMask from 'react-native-text-input-mask'
 import { telaCadastro } from '../Estilo'
 import { theme } from '../PageStyle'
 import Global from './Global'
@@ -45,12 +46,12 @@ export const Cadastro = () => {
                     <View theme={theme} style={telaCadastro.pagcad}>
                     <TextInput label={Global.lingp ? "Nome" : "Name"} onChangeText={name => setName(name)} value={name}theme={theme}/>
                     <TextInput label={Global.lingp ? "Data Nascimento" : "Birthday"} keyboardType="number-pad" onChangeText={ dataNasc => setDataNasc(dataNasc)} value={dataNasc} theme={theme}/>
-                    <TextInput label={Global.lingp ?"CPF" : "SSN"} type={'cpf'} keyboardType="number-pad" onChangeText={ cpf=> setCpf(cpf)} value={cpf} theme={theme}/>
+                    <TextInput label={Global.lingp ?"CPF" : "SSN"} render={props => (Global.lingp ? <TextInputMask {...props} mask="[000].[000].[000]-[00]"/> : <TextInputMask {...props} mask="[000]-[00]-[0000]"/> ) } type={'cpf'} keyboardType="number-pad" onChangeText={ cpf=> setCpf(cpf)} value={cpf} theme={theme}/>
                     <TextInput label="Email"  onChangeText={email => setEmail(email)} value={email} keyboardType="email-address" theme={theme}/>
                     <TextInput label={Global.lingp ? "Senha" : "Password" } onChangeText={senha => setSenha(senha)} value={senha} secureTextEntry={true} theme={theme}  right={<TextInput.Icon name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
                     <TextInput label={Global.lingp ? "Confirmar senha" : "Confirm Password"} secureTextEntry={true} theme={theme} right={<TextInput.Icon name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
                     <TextInput label={Global.lingp ? "Telefone" : "Phone Number"} onChangeText={ fone => setFone(fone)} value={fone} keyboardType="phone-pad" theme={theme}/>
-                    <Button  mode="contained" onPress={() => insertUser(name, dataNasc, cpf,email,senha,fone)} style={telaCadastro.button} theme={theme}>{Global.lingp? "Finalizar Cadastro" : "Sign Up"}</Button>
+                    <Button  mode="contained" onPress={(LoginScreen) => insertUser(name, dataNasc, cpf,email,senha,fone)} style={telaCadastro.button} theme={theme}>{Global.lingp? "Finalizar Cadastro" : "Sign Up"}</Button>
                     </View>
                 </ScrollView>
            </SafeAreaView>

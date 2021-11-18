@@ -12,32 +12,28 @@ export default function Header({lingp, onChangeLingp}) {
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
     const containerStyle = {backgroundColor: 'white', padding: 30};
-    const alterLingp = () => {
-        setLing(!lingp)
-        Global.lingp = !Global.lingp
-     }
+
      const handleLingChange = useCallback(event => {
         onChangeLingp(!lingp)
         Global.lingp=!lingp
       }, )
 return(
-        <Provider>
+  <Provider>
     <Container>
-
-<Portal>
-<Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-<Text style={{color: '#000', display: 'flex', textAlign: 'center', fontSize: 20, top: -15, fontWeight: 'bold'}}>{lingp ? 'Alterar idioma' : 'Change the language'}</Text>
-<Button theme={theme} onPress={handleLingChange} color='#002244' style={{marginLeft: 60, marginRight: 60}}>{lingp ? 'English' : 'Português'}</Button>
-  <Button onPress={hideModal} color= "#fff"  style={{marginTop: 30, marginLeft: 60, marginRight: 60, backgroundColor: '#002244'}}>{lingp ? "Confirmar" : "Confirm" }</Button>
-</Modal>
+      <Portal>
+        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+          <Text style={{color: '#000', display: 'flex', textAlign: 'center', fontSize: 20, top: -15, fontWeight: 'bold'}}>{lingp ? 'Alterar idioma' : 'Change the language'}</Text>
+            <Button theme={theme} onPress={handleLingChange} color='#002244' style={{marginLeft: 60, marginRight: 60}}>{lingp ? 'English' : 'Português'}</Button>
+            <Button onPress={hideModal} color= "#fff"  style={{marginTop: 30, marginLeft: 60, marginRight: 60, backgroundColor: '#002244'}}>{lingp ? "Confirmar" : "Confirm" }</Button>
+        </Modal>
       </Portal>
-      <Icon name="translate" color="#fff" onPress={showModal} size={35} style={{backgroundColor: '#002244', marginLeft: 'auto', right: 10, top: 3}}/>
-        <Top>
-        <Title style={styles.font}>Readook</Title>
-        </Top>
-        <Logo source={logo}/>
+        <Icon name="translate" color="#fff" onPress={showModal} size={35} style={{backgroundColor: '#002244', marginLeft: 'auto', right: 10, top: 3}}/>
+          <Top>
+            <Title style={styles.font}>Readook</Title>
+          </Top>
+            <Logo source={logo}/>
     </Container>
-    </Provider>
+  </Provider>
 )
 
 }

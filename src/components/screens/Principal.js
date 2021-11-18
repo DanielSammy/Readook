@@ -4,14 +4,14 @@ import Header from '../Header/Header'
 import {Tab} from '../Tabs/Tab'
 import Global from './Global'
 import { socket } from '../../services/socket'
-import {useRoute, useNavigation} from '@react-navigation/native'
+import {useNavigation} from '@react-navigation/native'
 import PushNotification from 'react-native-push-notification'
 
 
 
 
 
-const Home = (props) => {
+const Home = () => {
     PushNotification.configure({
         onNotification: function (notification) {
           console.log("poxa: ", goToChatMensagem(notification))

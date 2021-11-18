@@ -1,17 +1,6 @@
   import { StyleSheet} from 'react-native'
 import { card, theme } from './PageStyle'
 
-  // export default StyleSheet.create({
-  //         App: {
-  //             flexGrow: 1,
-  //             justifyContent: "center",
-  //             alignItems: "center",
-  //             padding: 20,
-  //             padding: 20,
-  //             backgroundColor: "#002244",
-  //     }
-  //   })
-
     export const loginStyle = StyleSheet.create({
       content: {
         display:"flex",

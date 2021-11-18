@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Container, TabsContainer, TabItem, TabText  } from './style'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native';
 import {  TouchableNativeFeedback } from 'react-native';
-import Global from '../screens/Global'
 
 
 
@@ -11,7 +10,7 @@ export const Tab = ({lingp}) => {
 const navigation = useNavigation();
 
 return(
-    <Container>
+    <Container style={{bottom: 10}}>
         <TabsContainer>  
             <TouchableNativeFeedback onPress={()=>navigation.navigate('Profile')}>
                 <TabItem >
