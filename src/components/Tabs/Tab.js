@@ -12,7 +12,7 @@ const navigation = useNavigation();
 
 return(
     <Container>
-        <TabsContainer>  
+        <TabsContainer style={{}}>  
             <TouchableNativeFeedback onPress={()=>navigation.navigate('Profile')}>
                 <TabItem >
                     <Icon name="person" size={24} color="#FFF"/>
