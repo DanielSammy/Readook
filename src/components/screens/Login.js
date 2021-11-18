@@ -108,7 +108,7 @@ export const LoginScreen = (props) =>{
    const [visible, setVisible] = React.useState(false);
    const showModal = () => setVisible(true);
    const hideModal = () => setVisible(false);
-   const containerStyle = {backgroundColor: 'white', padding: 30};
+   const containerStyle = {backgroundColor: 'white', padding: 30, margin: 30};
 
    return (
       <Provider>
