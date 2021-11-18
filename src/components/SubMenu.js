@@ -8,9 +8,6 @@ import { telaCadastro } from './Estilo';
 import Global from './screens/Global';
 
 
-// <AntDesign name="plus" size={24} color="#4F8EF7" />
-
-
 export default function FabButon (props) {
     const [ valor, setValor ] = useState(0);
     const [ onLoad, setOnLoad ]  = useState(true);
