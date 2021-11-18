@@ -55,10 +55,22 @@ export const consultaChatEntreUsuarios = async (usuarios) => {
 
 export const consultaChat = async (usuario) => {
   return new Promise((resolve, reject) => {
-    connection.query(`select cha_codigo,usr_codigo,usr_nomecompleto,usr_email,usr_dtnascimento,usr_avatar,chm_usrcodigorem,chm_datahora,chm_mensagem 
+    connection.query(`select cha_codigo,usr_codigo,usr_nomecompleto,usr_email,usr_dtnascimento,usr_avatar,chm_usrcodigorem,chm_datahora,chm_mensagem, 
+    (select count(chm_mensagem) from chatmensagem where chm_lida=0 and chm_chacodigo=cha_codigo and chm_usrcodigorem<>${usuario}) as chm_naolidas
     from chat join usuario on cha_usuarios regexp usr_codigo join chatmensagem on cha_codigo = chm_chacodigo 
     where chm_codigo = (select max(chm_codigo) from chatmensagem where chm_chacodigo=cha_codigo) and usr_codigo<>${usuario} and 
     (chm_usrcodigorem = ${usuario} or chm_usrcodigodes=${usuario}) order by chm_datahora desc`, (err, results) => {
+      if (err) {
+        return reject(err)
+      }
+      resolve(results)
+    })
+  })
+}
+
+export const atualizaMensagemNaoLidas = async (chatCodigo, usrDest) => {
+  return new Promise((resolve, reject) => {
+    connection.query(`UPDATE chatmensagem set chm_lida=1 where chm_chacodigo=${chatCodigo} and chm_usrcodigodes=${usrDest}`, (err, results) => {
       if (err) {
         return reject(err)
       }
@@ -122,6 +134,7 @@ export default {
   consultaUsuario,
   consultaChat,
   consultaChatEntreUsuarios,
+  atualizaMensagemNaoLidas,
   consultaChatMensagens,
   insereNovaMensagem,
   selectOtherUsers
