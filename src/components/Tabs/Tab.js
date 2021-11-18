@@ -7,37 +7,37 @@ import Global from '../screens/Global'
 
 
 
-export const Tab = () => {
+export const Tab = ({lingp}) => {
 const navigation = useNavigation();
 
 return(
     <Container>
-        <TabsContainer style={{}}>  
+        <TabsContainer>  
             <TouchableNativeFeedback onPress={()=>navigation.navigate('Profile')}>
                 <TabItem >
                     <Icon name="person" size={24} color="#FFF"/>
-                        <TabText>{Global.lingp ? "Meu Perfil" : "Profile"}</TabText>
+                        <TabText>{lingp ? "Meu Perfil" : "Profile"}</TabText>
                 </TabItem>
             </TouchableNativeFeedback> 
 
             <TouchableNativeFeedback onPress={()=>navigation.navigate('Livros')} >  
                 <TabItem>
                     <Icon name="auto-stories" size={24} color="#FFF"/>
-                        <TabText>{ Global.lingp ? "Biblioteca" : "Library" }</TabText>
+                        <TabText>{ lingp ? "Biblioteca" : "Library" }</TabText>
                 </TabItem>
             </TouchableNativeFeedback>
 
             <TouchableNativeFeedback onPress={() => navigation.navigate('Chat')}>
                 <TabItem>                
                     <Icon name="chat" size={24} color="#FFF"/>
-                        <TabText>{ Global.lingp ? "Bate Papo" : "Chat" }</TabText>
+                        <TabText>{ lingp ? "Bate Papo" : "Chat" }</TabText>
                 </TabItem>
             </TouchableNativeFeedback>
 
             <TouchableNativeFeedback onPress={() => navigation.navigate('Maps')}>
                 <TabItem>
                     <Icon name="pin-drop" size={24} color="#FFF" />
-                        <TabText>{ Global.lingp ? "Localizar no mapa" : "Map Localization" }</TabText>
+                        <TabText>{ lingp ? "Localizar no mapa" : "Map Localization" }</TabText>
                 </TabItem>
             </TouchableNativeFeedback>
 

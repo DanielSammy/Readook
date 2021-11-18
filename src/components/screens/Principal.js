@@ -37,7 +37,7 @@ const Home = (props) => {
     const navigation = useNavigation()
     const [ notification , setNotification ] = useState([])
     const [ deliveredNotification, setDeliveredNotification ] = useState([])
-
+    const [ lingp, setLingp] = useState(Global.lingp)
 
     
     useEffect(() => {
@@ -96,8 +96,8 @@ const Home = (props) => {
             }, [notification])
     return (
         <Container>
-            <Header/>        
-            <Tab/>
+            <Header lingp={lingp} onChangeLingp = {setLingp}/>        
+            <Tab lingp={lingp}/>
         </Container>
         )
 }

@@ -4,6 +4,7 @@ import {Button, Appbar, TextInput, TextInputMask} from 'react-native-paper'
 import { telaCadastro } from '../Estilo'
 import { theme } from '../PageStyle'
 import Global from './Global'
+import { LoginScreen } from './Login'
 
 
 
@@ -16,6 +17,7 @@ export const Cadastro = () => {
     const [fone, setFone] = useState('')
 
     const insertUser = async(name, dataNasc, cpf,email,senha,fone) =>{
+        console.log(name, dataNasc, cpf,email,senha,fone)
         const user = {}
         const dataFormat = ''.concat(dataNasc.substr(6,4),'-',dataNasc.substr(3,2),'-',dataNasc.substr(0,2))
         user.name = name
@@ -24,6 +26,7 @@ export const Cadastro = () => {
         user.dataNasc = dataFormat
         user.cpf = cpf
         user.fone = fone
+        console.log(JSON.stringify(user))
         const response = await fetch(`http://${Global.ipBancoDados}:${Global.portaBancoDados}/user/cadastro`, {
             method: 'POST',
             headers: {
@@ -37,7 +40,7 @@ export const Cadastro = () => {
 }
 
        return (
-           <SafeAreaView style={{top: '20%',}} >
+           <SafeAreaView style={{top: '10%',}} >
                 <ScrollView>
                     <View theme={theme} style={telaCadastro.pagcad}>
                     <TextInput label={Global.lingp ? "Nome" : "Name"} onChangeText={name => setName(name)} value={name}theme={theme}/>

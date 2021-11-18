@@ -70,7 +70,7 @@ app.post('/chatMensagens/novaMensagem', async (req, res) => {
   res.send(results)
 })
 
-app.post('/user/cadastro'), async (req, res) => {
+app.post('/user/cadastro', async (req, res) => {
   const informacaoInsert = req.body[0]
   const name = informacaoInsert.name
   const email = informacaoInsert.email
@@ -78,7 +78,7 @@ app.post('/user/cadastro'), async (req, res) => {
   const dataNasc = informacaoInsert.dataNasc
   const cpf = informacaoInsert.cpf
   const fone = informacaoInsert.fone
-}
+})
 
 io.on('connection',(socket) => {
   console.log('conectou')
