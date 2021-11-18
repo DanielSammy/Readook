@@ -51,7 +51,7 @@ export default function Home(props) {
             }, [notification])
     return (
         <Container>
-            <Header/>          
+            <Header/>        
             <Tab/>
         </Container>
         )
