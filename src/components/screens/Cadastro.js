@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {  SafeAreaView, ScrollView, View} from 'react-native'
-import {Button, TextInput} from 'react-native-paper'
+import {Button, TextInput, Text} from 'react-native-paper'
 import TextInputMask from 'react-native-text-input-mask'
 import { telaCadastro } from '../Estilo'
 import { theme } from '../PageStyle'
@@ -9,13 +9,21 @@ import { LoginScreen } from './Login'
 
 
 
-export const Cadastro = () => { 
+export const Cadastro = ({navigation}) => { 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: Global.lingp ? 'Cadastro' : "Registration",
+    });
+  }, [navigation, Global.lingp])
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [dataNasc, setDataNasc] = useState('')
     const [cpf, setCpf] = useState('')
     const [fone, setFone] = useState('')
+    const [secureTextSenha , setSecureTextSenha ] = useState(true)
+    const [secureTextConfirm , setSecureTextConfirm ] = useState(true)
+    const [ senhaIgual, setSenhaIgual ] = useState(true)
 
     const insertUser = async(name, dataNasc, cpf,email,senha,fone) =>{
         console.log(name, dataNasc, cpf,email,senha,fone)
@@ -40,6 +48,14 @@ export const Cadastro = () => {
         console.log(response)
 }
 
+const verificaConfirmacaoSenha = (confSenha, senha) => {
+  if (senha !== confSenha) {
+    setSenhaIgual(false)
+  } else {
+    setSenhaIgual(true)
+  }
+}
+
        return (
            <SafeAreaView style={{top: '10%',}} >
                 <ScrollView>
@@ -48,8 +64,11 @@ export const Cadastro = () => {
                     <TextInput label={Global.lingp ? "Data Nascimento" : "Birthday"} keyboardType="number-pad" onChangeText={ dataNasc => setDataNasc(dataNasc)} value={dataNasc} theme={theme}/>
                     <TextInput label={Global.lingp ?"CPF" : "SSN"} render={props => (Global.lingp ? <TextInputMask {...props} mask="[000].[000].[000]-[00]"/> : <TextInputMask {...props} mask="[000]-[00]-[0000]"/> ) } type={'cpf'} keyboardType="number-pad" onChangeText={ cpf=> setCpf(cpf)} value={cpf} theme={theme}/>
                     <TextInput label="Email"  onChangeText={email => setEmail(email)} value={email} keyboardType="email-address" theme={theme}/>
-                    <TextInput label={Global.lingp ? "Senha" : "Password" } onChangeText={senha => setSenha(senha)} value={senha} secureTextEntry={true} theme={theme}  right={<TextInput.Icon name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
-                    <TextInput label={Global.lingp ? "Confirmar senha" : "Confirm Password"} secureTextEntry={true} theme={theme} right={<TextInput.Icon name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
+                    <TextInput label={Global.lingp ? "Senha" : "Password" } onChangeText={senha => setSenha(senha)} value={senha} secureTextEntry={secureTextSenha} theme={theme}  right={<TextInput.Icon onPress={() => setSecureTextSenha(!secureTextSenha)} name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
+                    <TextInput label={Global.lingp ? "Confirmar senha" : "Confirm Password"} onChangeText={(event) => verificaConfirmacaoSenha(event, senha)} secureTextEntry={secureTextConfirm} theme={theme} right={<TextInput.Icon onPress={() => {setSecureTextConfirm(!secureTextConfirm);console.log('oi') }} name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
+                    {senhaIgual ? <></> : <Text style={{color:'red'}}>{Global.lingp? "*Senhas não conferem" : "*Passwords don't match"}</Text>}
+                    <View style={{display: 'flex', flexDirection:'column', width: '100%'}}>
+                    </View>
                     <TextInput label={Global.lingp ? "Telefone" : "Phone Number"} onChangeText={ fone => setFone(fone)} value={fone} keyboardType="phone-pad" theme={theme}/>
                     <Button  mode="contained" onPress={(LoginScreen) => insertUser(name, dataNasc, cpf,email,senha,fone)} style={telaCadastro.button} theme={theme}>{Global.lingp? "Finalizar Cadastro" : "Sign Up"}</Button>
                     </View>

@@ -14,7 +14,7 @@ export const LoginScreen = (props) =>{
    const [ email, setEmail ] = useState('')
    const [ senha, setSenha ] = useState('')
    const [ secureText, setSecureText ] = useState(true)
-   const [ lingp, setLing] = useState(true)
+   const [ lingp, setLing] = useState(Global.lingp)
 
    const createChannels = () => {
       PushNotification.createChannel({
