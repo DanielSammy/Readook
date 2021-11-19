@@ -19,13 +19,13 @@ function MyStack() {
   return (
     <Stack.Navigator>
     <Stack.Screen name="Login" component={LoginScreen} options ={{headerTransparent: true, title:''}}/>
-    <Stack.Screen name="Cadastro" component={Cadastro} options={{title: Global.lingp ? 'Cadastro' : 'Registration' ,headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/>
+    <Stack.Screen name="Cadastro" component={Cadastro} options={{headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/>
     <Stack.Screen name="Principal" component={Home} options={{headerTransparent: true,title:'', headerShown: false}}/>
-    <Stack.Screen name="Profile" component={Profile} options={{headerTransparent: false, title:'Daniel Sammy', headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/> 
-    <Stack.Screen name="Livros" component={Livro} options={{title: Global.lingp ? "Livros" : "Books" ,headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/>
-    <Stack.Screen name="Chat" component={Chat} options={{title:Global.lingp ? 'Mensagens' : 'Messages', headerStyle:{backgroundColor: '#002244'},headerTintColor: '#fff'}}/>
-    <Stack.Screen name="ChatUsuarios" component={ChatUsuarios} options={{ headerStyle:{backgroundColor: '#002244'},headerTintColor: '#fff'}}/>
-    <Stack.Screen name="ChatMensagem" component={ChatMensagem} options={{ headerStyle:{backgroundColor: '#002244'},headerTintColor: '#fff'}}/>
+    <Stack.Screen name="Profile" component={Profile} options={{headerTransparent: false, headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/> 
+    <Stack.Screen name="Livros" component={Livro} options={{headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/>
+    <Stack.Screen name="Chat" component={Chat} options={{headerStyle:{backgroundColor: '#002244'},headerTintColor: '#fff'}}/>
+    <Stack.Screen name="ChatUsuarios" component={ChatUsuarios} options={{headerStyle:{backgroundColor: '#002244'},headerTintColor: '#fff'}}/>
+    <Stack.Screen name="ChatMensagem" component={ChatMensagem} options={{headerStyle:{backgroundColor: '#002244'},headerTintColor: '#fff'}}/>
     <Stack.Screen name="Maps" component={Maps} options ={{headerTransparent: true, title:''}}/>
     </Stack.Navigator>
   );
