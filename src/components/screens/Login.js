@@ -7,6 +7,7 @@ import { theme } from '../PageStyle'
 import Global from './Global'
 import PushNotification from 'react-native-push-notification'
 import { ThemeColors } from 'react-navigation'
+import {firebase} from '@react-native-firebase/auth'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
@@ -102,6 +103,7 @@ export const LoginScreen = (props) =>{
    }
 
    useEffect(() => {
+      firebase.auth().signInAnonymously()
       createChannels();
    }
    )

@@ -1,5 +1,6 @@
-import React from 'react'
-import { Text, View, Button, StyleSheet, SafeAreaView } from 'react-native'
+import React, {useState} from 'react'
+import { Text,  StyleSheet, SafeAreaView, View, TouchableHighlight } from 'react-native'
+import { Button,  } from 'react-native-paper'
 import { Container} from '../Header/style';
 import logo from '../Img/logoR.png'
 import styled from 'styled-components/native';
@@ -10,6 +11,7 @@ import Global from './Global'
 
 
 export default function Profile({navigation}) {
+   const [imageSource, setImageSource ] = useState(Global.user.usrAvatar)
 
    React.useLayoutEffect(() => {
       navigation.setOptions({
@@ -20,7 +22,12 @@ export default function Profile({navigation}) {
    return (
       <SafeAreaView>
          <Container>
-      <Logo source={{uri: `${Global.user.usrAvatar}`}}></Logo>
+            <TouchableHighlight style={{borderRadius: 100}} onPress={() => navigation.navigate('UploadScreen',
+            {
+               onGoBack: (item) => setImageSource(item)
+            })}>
+               <Logo borderRadius={100} source={{uri: `${imageSource}`}}></Logo>
+            </TouchableHighlight>
          </Container>
 <View>
       <Text style={styles.Perfil}>Email: {Global.user.usrEmail}</Text>
