@@ -78,6 +78,17 @@ app.post('/user/cadastro', async (req, res) => {
   const dataNasc = informacaoInsert.dataNasc
   const cpf = informacaoInsert.cpf
   const fone = informacaoInsert.fone
+  const results = await Banco.addUser(name, email, senha, dataNasc, cpf, fone)
+  res.send(results)
+})
+
+app.post('/user/update', async (req,res) => {
+  const informacaoInsert = req.body[0]
+  const usrCodigo = informacaoInsert.usrCodigo
+  const nomeCampo = informacaoInsert.nomeCampo
+  const valorCampo = informacaoInsert.valorCampo
+  const results = await Banco.updateUser(usrCodigo, nomeCampo, valorCampo)
+  res.send(results)
 })
 
 io.on('connection',(socket) => {
