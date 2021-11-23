@@ -22,11 +22,11 @@ export default function Profile({navigation}) {
    return (
       <SafeAreaView>
          <Container>
-            <TouchableHighlight style={{borderRadius: 100}} onPress={() => navigation.navigate('UploadScreen',
-            {
-               onGoBack: (item) => setImageSource(item)
-            })}>
-               <Logo borderRadius={100} source={{uri: `${imageSource}`}}></Logo>
+            <TouchableHighlight style={{marginTop:10, borderRadius: 15}} onPress={() => {
+            navigation.navigate('UploadScreen')
+            }
+            }>
+               <Logo borderRadius={15}  source={{uri: `${imageSource}`}}></Logo>
             </TouchableHighlight>
          </Container>
 <View>

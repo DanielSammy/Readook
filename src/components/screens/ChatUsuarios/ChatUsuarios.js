@@ -7,6 +7,7 @@ import { CommonActions, useNavigation, useNavigationState } from '@react-navigat
 import { ChatContainer, ContainerImage, ImageContainer, TextContainer } from './styles';
 import io from 'socket.io-client'
 import Global from '../Global'
+import ImagemPerfilModal from '../../ImagemPerfilModal/ImagemPerfilModal';
 
 const ChatUsuarios = ({route, navigation}) => {
     React.useLayoutEffect(() => {
@@ -39,6 +40,13 @@ const ChatUsuarios = ({route, navigation}) => {
        return true;
      };
 
+     const chamaModal = (userAvatar) => {
+      setShowAvatar(userAvatar)
+      setVisible(!visible)
+    }
+
+    const [ visible, setVisible] = useState(false)
+    const [ showAvatar, setShowAvatar] = useState('')
     const [ users, setUsers ] = useState([])
     const [ onLoad, setOnLoad ] = useState(true)
     const carregaUsuarios = async (usuario) => {
@@ -94,25 +102,29 @@ const ChatUsuarios = ({route, navigation}) => {
     
     return (
         <SafeAreaView style={{backgroundColor: '#daebeb', height: '100%'}}>
-            <ScrollView style={{backgroundColor: '#daebeb'}}>
+          <ScrollView style={{backgroundColor: '#daebeb'}}>
             {users.map((user) => (
-                <ChatContainer key={user._id}>
-                    <ImageContainer>
-                        <ContainerImage source={{uri: user.avatar}}/>
-                    </ImageContainer>
-                    <TouchableNativeFeedback data-key={user._id} onPress={() => goToChatMensagem(user)}>
-                        <TextContainer key={user._id}>
-                            <View style={{display:'flex', flexDirection:'column'}}>
-                                <View style={{display:'flex', flexDirection:'row'}}>
-                                    <Text style={{fontWeight:'bold', fontSize:16, marginRight:'auto'}}>
-                                    {`  ${user.name}`}
-                                    </Text>
-                                </View>
+              <ChatContainer key={user._id}>
+                <TouchableNativeFeedback data-key={`img${user._id}`} onPress={() => chamaModal(user.avatar)}>
+                  <ImageContainer>
+                      <ContainerImage source={{uri: user.avatar}}/>
+                  </ImageContainer>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback data-key={user._id} onPress={() => goToChatMensagem(user)}>
+                    <TextContainer key={user._id}>
+                        <View style={{display:'flex', flexDirection:'column'}}>
+                            <View style={{display:'flex', flexDirection:'row'}}>
+                                <Text style={{fontWeight:'bold', fontSize:16, marginRight:'auto'}}>
+                                {`  ${user.name}`}
+                                </Text>
                             </View>
-                        </TextContainer>
-                    </TouchableNativeFeedback>
-                </ChatContainer>))}
-            </ScrollView>
+                        </View>
+                    </TextContainer>
+                </TouchableNativeFeedback>
+              </ChatContainer>
+            ))}
+          </ScrollView>
+          <ImagemPerfilModal imageUri={showAvatar} visible={visible} onChangeVisible={setVisible} />
         </SafeAreaView>
     )
 }

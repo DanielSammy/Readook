@@ -9,7 +9,7 @@ import {
   Alert,
   Image
 } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { HeaderBackButton } from '@react-navigation/stack'
 import storage from '@react-native-firebase/storage';
 import * as Progress from 'react-native-progress';
@@ -28,7 +28,7 @@ const UploadScreen = ({navigation}) => {
     navigation.setOptions({
       title: Global.lingp? 'Mudar foto de perfil' : 'Change Profile Picture',
       headerLeft:() => (<View style={{display: 'flex', flexDirection: 'row'}}><HeaderBackButton
-        onPress={() => backAction(downloadUrl)}
+        onPress={() => backAction()}
         title="Info"
         tintColor="#fff"
       />
@@ -38,12 +38,9 @@ const UploadScreen = ({navigation}) => {
     });
   }, [navigation]);
 
-  const backAction = (downloadUrl) => {
+  const backAction = () => {
     const actualIndex = navegacao.dangerouslyGetState().index 
     const newIndex = actualIndex - 1
-    if (downloadUrl !== null) {
-      navigation.state.params.onGoBack(downloadUrl)
-    }
      navigation.dispatch(
         CommonActions.reset({
         index: newIndex,
@@ -72,6 +69,7 @@ const UploadScreen = ({navigation}) => {
 
   const selectImage = () => {
     const options = {
+      mediaType: 'photo',
       maxWidth: 2000,
       maxHeight: 2000,
       storageOptions: {
@@ -79,7 +77,7 @@ const UploadScreen = ({navigation}) => {
         path: 'images'
       }
     }
-    ImagePicker.showImagePicker(options, response => {
+    launchImageLibrary(options, response => {
       if (response.didCancel) {
         console.log('Usuário cancelou Image Picker')
       } else if (response.error) {
@@ -106,8 +104,22 @@ const UploadScreen = ({navigation}) => {
         },
         body: JSON.stringify(informacaoUpdate)
       })
-      .then(response => response.json())
-    Global.user.usrAvatar = valorCampo
+      .then(response => {
+        if (response.status !== 200) {
+          const errorMessage = response.headers.get('errormessage')
+          
+         throw new Error(errorMessage)
+        }
+        response.typeReturned = 'Sucess'
+        Global.user.usrAvatar = valorCampo
+        setDownloadUrl(valorCampo)
+        return response.json()
+      })
+      .catch(err =>  {
+        err.typeReturned = 'Erro'
+        return err
+      })
+    return response
 }
 
   const uploadImage = async () => {
@@ -139,17 +151,26 @@ const UploadScreen = ({navigation}) => {
        const mDownloadUrl = await storage()
         .ref(fileName)
         .getDownloadURL();
-        console.log(mDownloadUrl)
-        await updateUserAvatar(mDownloadUrl)
+        const response = await updateUserAvatar(mDownloadUrl)
+        if (response.typeReturned === 'Erro') {
+          const deleteFoto = await storage()
+          .ref(fileName)
+          .delete()
+          Alert.alert(
+            'Vish deu erro',
+            'Devido a um erro foi deletado a foto '
+            )
+          return 
+        }
+        Alert.alert(
+          'Foto Upada',
+          'Sua foto subiu caraaaaai'
+        )
      })
 
       try {
         console.log(uri,fileName)
-        await task
-        Alert.alert(
-          'Foto Upada',
-          'Sua foto subiu caraaaaai'
-        )        
+        await task        
       } catch (err) {
         console.error(err)
       }
@@ -164,20 +185,22 @@ const UploadScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity style={styles.selectButton} onPress={selectImage}>
-        <Text style={styles.buttonText}>Pick an image</Text>
+        <Text style={styles.buttonText}>{Global.lingp ? "Escolha uma Imagem" : "Pick an image"}</Text>
       </TouchableOpacity>
       <View style={styles.imageContainer}>
         {image !== null ? (
-          <Image source={{ uri: image.uri }} style={styles.imageBox} />
+          <Image borderRadius={100} source={{ uri: image.uri }} style={styles.imageBox} />
         ) : null}
         {uploading ? (
           <View style={styles.progressBarContainer}>
             <Progress.Bar progress={transferred} width={300} />
           </View>
         ) : (
+          image !== null ? (
           <TouchableOpacity style={styles.uploadButton} onPress={uploadImage}>
-            <Text style={styles.buttonText}>Upload image</Text>
+            <Text style={styles.buttonText}>{Global.lingp ? "Alterar foto de perfil" : "Change Profile Picture"}</Text>
           </TouchableOpacity>
+          ) : null
         )}
       </View>
     </SafeAreaView>
@@ -189,21 +212,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#bbded6'
+    backgroundColor: '#daebeb'
   },
   selectButton: {
+    marginTop: 20,
     borderRadius: 5,
-    width: 150,
+    width: 300,
     height: 50,
-    backgroundColor: '#8ac6d1',
+    backgroundColor: '#002244',
     alignItems: 'center',
     justifyContent: 'center'
   },
   uploadButton: {
     borderRadius: 5,
-    width: 150,
+    width: 300,
     height: 50,
-    backgroundColor: '#ffb6b9',
+    backgroundColor: '#005490',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20
@@ -214,6 +238,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   imageContainer: {
+    borderRadius: 100,
     marginTop: 30,
     marginBottom: 50,
     alignItems: 'center'
