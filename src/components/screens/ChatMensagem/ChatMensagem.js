@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { View, BackHandler } from 'react-native'
 import { CommonActions, useNavigation } from '@react-navigation/native'
-import { HeaderBackButton } from '@react-navigation/stack'
+import { HeaderBackButton, HeaderTitle } from '@react-navigation/stack'
 import { GiftedChat, Send, InputToolbar } from 'react-native-gifted-chat'
 import Global from '../Global'
 import { socket } from '../../../services/socket'
@@ -46,7 +46,7 @@ const ChatMensagem = ({navigation, route}) => {
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: nomeUsuario === '' ? 'No title' : `        ${nomeUsuario}`,
+      title: nomeUsuario === '' ? 'No title' : `   ${nomeUsuario}`,
       headerLeft:() => (<View style={{display: 'flex', flexDirection: 'row'}}><HeaderBackButton
         onPress={() => backAction()}
         title="Info"

@@ -27,7 +27,7 @@ return(
             <Button onPress={hideModal} color= "#fff"  style={{marginTop: 30, marginLeft: 60, marginRight: 60, backgroundColor: '#002244'}}>{lingp ? "Confirmar" : "Confirm" }</Button>
         </Modal>
       </Portal>
-        <Icon name="translate" color="#fff" onPress={showModal} size={35} style={{backgroundColor: '#002244', marginLeft: 'auto', right: 10, top: 3}}/>
+        <Icon name="translate" color="#fff" onPress={showModal} size={35} style={{backgroundColor: '#002244', marginLeft: 'auto', margin: 5}}/>
           <Top>
             <Title style={styles.font}>Readook</Title>
           </Top>
