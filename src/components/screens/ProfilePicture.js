@@ -22,6 +22,7 @@ const UploadScreen = ({navigation}) => {
   const [uploading, setUploading] = useState(false)
   const [transferred, setTransferred] = useState(0)
   const [downloadUrl, setDownloadUrl] = useState(null)
+  const [aspectRatio, setAspectRatio] = useState(1)
   const navegacao = useNavigation();
   
   React.useLayoutEffect(() => {
@@ -85,7 +86,12 @@ const UploadScreen = ({navigation}) => {
       } else if (response.customButton) {
         console.log('Usuario clicou em um botão customizado: ', response.customButton)
       } else {
-        const source = {uri: response.uri};
+        console.log(response)
+        const source = {uri: response.assets[0].uri}
+        const height = response.assets[0].height
+        const width = response.assets[0].width
+        const widthAspectRatio = width / height
+        setAspectRatio(widthAspectRatio)
         setImage(source)
       }
     })
@@ -247,8 +253,13 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   imageBox: {
-    width: 300,
-    height: 300
+    height: 400,
+    width: 400,
+    resizeMode: 'cover'
+  },
+  cropBox: {
+  height: 300,
+  width: 300
   }
 });
 
