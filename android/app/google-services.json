@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "776481913757-u1hj8k5fmv9nkludail64g6dnc90j6l5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.readbook",
+            "certificate_hash": "07fe044c8300a6645c5d95ae6a39806a14800838"
+          }
+        },
+        {
           "client_id": "776481913757-5f53fsduf40524r8d3o295dnn9t9feq0.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -38,7 +46,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:776481913757:android:5ac46e9abb75057b058d74",
         "android_client_info": {
-          "package_name": "com.readbook"
+          "package_name": "com.readook"
         }
       },
       "oauth_client": [

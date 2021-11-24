@@ -10,6 +10,7 @@ import ChatUsuarios from './components/screens/ChatUsuarios/ChatUsuarios'
 import Livro from './components/screens/Livros'
 import Maps from './components/screens/Maps'
 import Profile from './components/screens/Profile'
+import UploadScreen from './components/screens/ProfilePicture'
 import Global from './components/screens/Global'
 
 
@@ -22,6 +23,7 @@ function MyStack() {
     <Stack.Screen name="Cadastro" component={Cadastro} options={{headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/>
     <Stack.Screen name="Principal" component={Home} options={{headerTransparent: true,title:'', headerShown: false}}/>
     <Stack.Screen name="Profile" component={Profile} options={{headerTransparent: false, headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/> 
+    <Stack.Screen name="UploadScreen" component={UploadScreen} options={{headerTransparent: false, title:'Mudar Foto', headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/> 
     <Stack.Screen name="Livros" component={Livro} options={{headerStyle:{ backgroundColor: '#002244',},headerTintColor: '#fff'}}/>
     <Stack.Screen name="Chat" component={Chat} options={{headerStyle:{backgroundColor: '#002244'},headerTintColor: '#fff'}}/>
     <Stack.Screen name="ChatUsuarios" component={ChatUsuarios} options={{headerStyle:{backgroundColor: '#002244'},headerTintColor: '#fff'}}/>

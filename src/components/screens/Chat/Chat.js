@@ -7,38 +7,43 @@ import Global from '../Global'
 import { HeaderBackButton } from '@react-navigation/stack';
 import { theme } from '../../PageStyle';
 import { socket } from '../../../services/socket';
+import ImagemPerfilModal from '../../ImagemPerfilModal/ImagemPerfilModal'
 
 
 const Chat = ({route, navigation}) => {
-    React.useLayoutEffect(() => {
-        navigation.setOptions({
-          title: Global.lingp ? 'Mensagens' : "Messages",
-          headerRight:() => (<View style={{display: 'flex', flexDirection: 'row'}}>
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: Global.lingp ? 'Mensagens' : "Messages",
+      headerRight:() => (<View style={{display: 'flex', flexDirection: 'row'}}>
               <IconButton icon="plus" size={24} color="#FFF" onPress={() => goToChatUsuarios()}/>
             </View>
             ),
-        });
-      }, [navigation, Global.lingp])
-
-      const backAction = () => {
+          });
+        }, [navigation, Global.lingp])
+        
+        const backAction = () => {
         navigation.dispatch(
-           CommonActions.reset({
-           index: 1,
-           routes:[
-             {name: 'Principal'},
+          CommonActions.reset({
+            index: 1,
+            routes:[
+              {name: 'Principal'},
              {name: 'Chat'},
-           ], 
-         })
-         )
+            ], 
+          })
+          )
        return true;
-     };
-
-    const goToChatUsuarios = () => {
+      };
+      
+      const goToChatUsuarios = () => {
         navigation.navigate('ChatUsuarios')
-    }
-
+      }
+    const [ dataAtual, setDataAtual ]  = useState('')
+    const [ visible, setVisible] = useState(false)
     const [ chats, setChats ] = useState([])
     const [ onLoad, setOnLoad ] = useState(true)
+    const [ showAvatar, setShowAvatar] = useState('')
     const carregaBatePapo = async (usuario) => {
         await fetch(`http://${Global.ipBancoDados}:${Global.portaBancoDados}/chat/${usuario}`)
         .then(response => response.json())
@@ -125,6 +130,14 @@ const Chat = ({route, navigation}) => {
     
       useEffect(() => {
         if (onLoad) {
+          const data = converterHoraParaLocal(new Date())
+          const stringData = data.toISOString()
+          const dataHoraCorreta = stringData.substr(0,stringData.length - 1)
+          if (Global.lingp) {
+             setDataAtual(`${dataHoraCorreta.substring(8,10)}/${dataHoraCorreta.substring(5,7)}/${dataHoraCorreta.substring(0,4)}`)
+          } else {
+            setDataAtual(`${dataHoraCorreta.substring(5,7)}/${dataHoraCorreta.substring(8,10)}/${dataHoraCorreta.substring(0,4)}`)
+          }
             carregaBatePapo(Global.user.usrCodigo);
             setOnLoad(false)
         }
@@ -134,41 +147,47 @@ const Chat = ({route, navigation}) => {
         }
       },[])
 
+      const chamaModal = (userAvatar) => {
+        setShowAvatar(userAvatar)
+        setVisible(!visible)
+      }
+
     return (
         <SafeAreaView style={{backgroundColor: '#daebeb', height: '100%'}}>
-            <ScrollView style={{backgroundColor: '#daebeb'}}>
+          <ScrollView style={{backgroundColor: '#daebeb'}}>
             {chats.map((chat) => (
-                <ChatContainer key={chat._id}>
-                    <ImageContainer>
-                        <ContainerImage source={{uri: chat.user.avatar}}/>
-                    </ImageContainer>
-                    <TouchableNativeFeedback data-key={chat._id} onPress={() => goToChatMensagem(chat)}>
-                        <TextContainer key={chat._id}>
-                            <View style={{display:'flex', flexDirection:'column'}}>
-                                <View style={{display:'flex', flexDirection:'row'}}>
-                                    <Text style={{fontWeight:'bold', fontSize:16, marginRight:'auto'}}>
-                                    {`  ${chat.user.name}`}
-                                    </Text>
-                                    <Text style={{marginLeft:'auto'}}>
-                                    {chat.data}
-                                    </Text>
-                                </View>
-                                <View style={{display:'flex', flexDirection:'row',paddingTop: 5, paddingLeft:5}}>
-                                <Text style={{fontSize:16, marginRight:'auto'}}>
-                                    {`  ${chat.ultimaMensagem}`}
-                                </Text>
-                                <Text style={{fontSize:12,padding:5,paddingLeft:0, color:'#ffffff', backgroundColor:'#002244', borderRadius:3, textAlign:'center'}}>
-                                    {`  ${chat.naoLidas} ${Global.lingp? " Não Lidas" : "Unseen"}`}
-                                </Text>
-                                    <Text style={{marginLeft:'auto'}}>
-                                     {chat.hora} 
-                                    </Text>
-                                </View>
-                            </View>
-                        </TextContainer>
-                    </TouchableNativeFeedback>
-                </ChatContainer>))}
-            </ScrollView>
+              <ChatContainer key={chat._id}>
+                <TouchableNativeFeedback data-key={`img${chat._id}`}onPress={() => chamaModal(chat.user.avatar)}>
+                  <ImageContainer >
+                      <ContainerImage source={{uri: chat.user.avatar}}/>
+                  </ImageContainer>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback data-key={chat._id} onPress={() => goToChatMensagem(chat)}>
+                  <TextContainer key={chat._id}>
+                    <View style={{display:'flex', flexDirection:'column'}}>
+                      <View style={{display:'flex', flexDirection:'row'}}>
+                          <Text style={{fontWeight:'bold', fontSize:16, marginRight:'auto'}}>
+                          {`  ${chat.user.name}`}
+                          </Text>
+                          <Text style={{marginLeft:'auto'}}>
+                          {chat.data === dataAtual ? chat.hora : chat.data}
+                          </Text>
+                      </View>
+                      <View style={{display:'flex', flexDirection:'row',paddingTop: 5, paddingLeft:5}}>
+                      <Text style={{fontSize:14, marginRight:'auto'}}>
+                          {`  ${chat.ultimaMensagem}`}
+                      </Text>
+                      <Text style={{fontSize:12,padding:2,paddingLeft:0, color:'#ffffff', backgroundColor:'#002244', borderRadius:3, textAlign:'center', height:25}}>
+                          {`${chat.naoLidas} ${Global.lingp? "Não Lidas" : "Unseen"}`}
+                      </Text>
+                      </View>
+                    </View>
+                  </TextContainer>
+                </TouchableNativeFeedback>
+              </ChatContainer>
+            ))}
+          </ScrollView>
+          <ImagemPerfilModal imageUri={showAvatar} visible={visible} onChangeVisible={setVisible} />
         </SafeAreaView>
     )
 }

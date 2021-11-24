@@ -6,11 +6,21 @@ import { loginStyle, telaCadastro } from '../Estilo'
 import { theme } from '../PageStyle'
 import Global from './Global'
 import PushNotification from 'react-native-push-notification'
-import { ThemeColors } from 'react-navigation'
+import {firebase} from '@react-native-firebase/auth'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { HeaderTitle } from '@react-navigation/stack'
 
 
 export const LoginScreen = (props) =>{
+   React.useLayoutEffect(() => {
+      props.navigation.setOptions({
+        headerTitle: (props) => <HeaderTitle style={{width:0}}>{props.children}</HeaderTitle>
+        
+      });
+    }, [props.navigation]);
+
+
+
    const [ email, setEmail ] = useState('')
    const [ senha, setSenha ] = useState('')
    const [ secureText, setSecureText ] = useState(true)
@@ -102,6 +112,7 @@ export const LoginScreen = (props) =>{
    }
 
    useEffect(() => {
+      firebase.auth().signInAnonymously()
       createChannels();
    }
    )
@@ -121,7 +132,7 @@ export const LoginScreen = (props) =>{
   </Modal>
               </Portal>
               <View style={{backgroundColor: '#002244'}}>
-            <Icon name="translate" color="#fff" onPress={showModal} size={35} style={{backgroundColor: '#002244', marginLeft: 'auto', right: 10, top: 3}}/>
+            <Icon  name="translate" color="#fff" onPress={showModal} size={35} style={{backgroundColor: '#002244', marginLeft: 'auto', margin: 5}}/>
               </View>
            <SafeAreaView style={loginStyle.content}>
            <View style={loginStyle.view}>
@@ -129,8 +140,8 @@ export const LoginScreen = (props) =>{
            <Avatar.Image size={75} source={require('../Img/logoR.png')}
            style={loginStyle.avatar}/>
           <Card.Content>
-          <TextInput label="Email" onChangeText={email => setEmail(email)} theme={theme} keyboardType="email-address" style={loginStyle.cardLabel}></TextInput>
-          <TextInput label={lingp ? "Senha" : "Password"} onChangeText={senha => setSenha(senha)} theme={theme} secureTextEntry={secureText} style={loginStyle.cardLabel} right={<TextInput.Icon onPress={() => setSecureText(!secureText)} name='eye-off-outline' color={telaCadastro.icon.color}/>}></TextInput>
+          <TextInput value={ email} label="Email" onChangeText={email => setEmail(email)} theme={theme} keyboardType="email-address" style={loginStyle.cardLabel}></TextInput>
+          <TextInput value={ senha} label={lingp ? "Senha" : "Password"} onChangeText={senha => setSenha(senha)} theme={theme} secureTextEntry={secureText} style={loginStyle.cardLabel} right={<TextInput.Icon onPress={() => setSecureText(!secureText)} name='eye-off-outline' color={telaCadastro.icon.color}/>}></TextInput>
           <Button uppercase={false} theme={theme}>{lingp ? "Recuperar Senha" : "Password Retrieve"}</Button>
           <Button mode="contained" style={loginStyle.cardButton} onPress={() => login(email, senha)}>Login</Button>
           <Button uppercase={false} theme={theme} onPress={Cadastro} >{lingp ? "Cadastre-se" : "Create new account"}</Button>

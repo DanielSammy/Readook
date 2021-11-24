@@ -9,7 +9,7 @@ export const ChatContainer = styled.View`
     background-color: #cecece;
 `
 export const ImageContainer = styled.View`
-    width:17%;
+    width:70px;
     height:100%;
 `
 
@@ -18,7 +18,7 @@ export const ContainerImage = styled.Image`
     width: 100%;
     height: 70px;
     resize-mode: cover;
-    border-radius: 300px;
+    border-radius: 21px;
 `
 export const TextContainer = styled.View`
     width: 80%;

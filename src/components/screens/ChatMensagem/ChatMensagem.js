@@ -1,14 +1,23 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { View, BackHandler } from 'react-native'
 import { CommonActions, useNavigation } from '@react-navigation/native'
-import { HeaderBackButton } from '@react-navigation/stack'
+import { HeaderBackButton, HeaderTitle } from '@react-navigation/stack'
 import { GiftedChat, Send, InputToolbar } from 'react-native-gifted-chat'
 import Global from '../Global'
 import { socket } from '../../../services/socket'
 import { AvatarImage } from './styles'
-import PushNotification from 'react-native-push-notification'
+import ImagemPerfilModal from '../../ImagemPerfilModal/ImagemPerfilModal'
+import { TouchableNativeFeedback } from 'react-native'
+import { Provider } from 'react-native-paper'
+import { white } from 'react-native-paper/lib/typescript/styles/colors'
 
 const ChatMensagem = ({navigation, route}) => {
+  const chamaModal = (userAvatar) => {
+    setShowAvatar(userAvatar)
+    setVisible(!visible)
+  }
+  const [ visible, setVisible] = useState(false)
+  const [ showAvatar, setShowAvatar] = useState('')
   const codigoChat = route.params.chatCodigo
   const nomeUsuario = route.params.name
   const userDest = route.params.codigoDest
@@ -46,15 +55,18 @@ const ChatMensagem = ({navigation, route}) => {
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: nomeUsuario === '' ? 'No title' : `        ${nomeUsuario}`,
+      title: nomeUsuario === '' ? 'No title' : `${nomeUsuario}`,
       headerLeft:() => (<View style={{display: 'flex', flexDirection: 'row'}}><HeaderBackButton
         onPress={() => backAction()}
         title="Info"
         tintColor="#fff"
       />
-      <AvatarImage source={{uri: userAvatar}}/>
+        <TouchableNativeFeedback style={{width: '50px', height:'50px'}} onPress={() => chamaModal(userAvatar)}>
+          <AvatarImage source={{uri: userAvatar}}/>
+        </TouchableNativeFeedback>
       </View>
       ),
+      headerTitle: (props) => (<HeaderTitle style={{marginLeft:40,color:'white', fontSize:16}}>{props.children}</HeaderTitle>),
       
     });
   }, [navigation, nomeUsuario]);
@@ -148,6 +160,8 @@ const ChatMensagem = ({navigation, route}) => {
   }
 
   return (
+    <Provider>
+      <View style={{width:"100%", height:'100%'}}>
       <GiftedChat user={user1}
       listViewProps={{
         style: {
@@ -164,6 +178,9 @@ const ChatMensagem = ({navigation, route}) => {
       renderAvatar={null}
       renderInputToolbar={renderInputToolbar}
       />
+      </View>   
+      <ImagemPerfilModal imageUri={showAvatar} visible={visible} onChangeVisible={setVisible}/>
+    </Provider>
   )
 }
 

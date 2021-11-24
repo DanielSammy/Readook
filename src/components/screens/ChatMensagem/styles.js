@@ -5,5 +5,5 @@ export const AvatarImage = styled.Image`
     width: 50px;
     height: 50px;
     resize-mode: cover;
-    border-radius: 300px;
+    border-radius: 15px;
 `
