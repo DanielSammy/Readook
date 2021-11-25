@@ -86,7 +86,6 @@ const UploadScreen = ({navigation}) => {
       } else if (response.customButton) {
         console.log('Usuario clicou em um botão customizado: ', response.customButton)
       } else {
-        console.log(response)
         const source = {uri: response.assets[0].uri}
         const height = response.assets[0].height
         const width = response.assets[0].width
@@ -153,7 +152,6 @@ const UploadScreen = ({navigation}) => {
       });
 
      task.then(async () => {
-       console.log('Image uploaded to the bucket!');
        const mDownloadUrl = await storage()
         .ref(fileName)
         .getDownloadURL();
@@ -163,22 +161,20 @@ const UploadScreen = ({navigation}) => {
           .ref(fileName)
           .delete()
           Alert.alert(
-            'Vish deu erro',
-            'Devido a um erro foi deletado a foto '
+            'Erro ao atualizar foto de perfil',
+            'Devido a um erro não foi possível atualizar a sua foto de perfil, tente novamente '
             )
           return 
         }
         Alert.alert(
-          'Foto Upada',
-          'Sua foto subiu caraaaaai'
+          'Foto alterada',
+          'Sua foto de perfil foi alterada com sucesso'
         )
      })
 
       try {
-        console.log(uri,fileName)
         await task        
       } catch (err) {
-        console.error(err)
       }
 
       setUploading(false);

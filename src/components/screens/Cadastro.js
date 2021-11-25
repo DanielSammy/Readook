@@ -26,7 +26,6 @@ export const Cadastro = ({navigation}) => {
     const [ senhaIgual, setSenhaIgual ] = useState(true)
 
     const insertUser = async(name, dataNasc, cpf,email,senha,fone) =>{
-        console.log(name, dataNasc, cpf,email,senha,fone)
         const user = {}
         const dataFormat = ''.concat(dataNasc.substr(6,4),'-',dataNasc.substr(3,2),'-',dataNasc.substr(0,2))
         user.name = name
@@ -35,7 +34,6 @@ export const Cadastro = ({navigation}) => {
         user.dataNasc = dataFormat
         user.cpf = cpf
         user.fone = fone
-        console.log(JSON.stringify(user))
         const response = await fetch(`http://${Global.ipBancoDados}:${Global.portaBancoDados}/user/cadastro`, {
             method: 'POST',
             headers: {
@@ -65,7 +63,7 @@ const verificaConfirmacaoSenha = (confSenha, senha) => {
                     <TextInput label={Global.lingp ?"CPF" : "SSN"} render={props => (Global.lingp ? <TextInputMask {...props} mask="[000].[000].[000]-[00]"/> : <TextInputMask {...props} mask="[000]-[00]-[0000]"/> ) } type={'cpf'} keyboardType="number-pad" onChangeText={ cpf=> setCpf(cpf)} value={cpf} theme={theme}/>
                     <TextInput label="Email"  onChangeText={email => setEmail(email)} value={email} keyboardType="email-address" theme={theme}/>
                     <TextInput label={Global.lingp ? "Senha" : "Password" } onChangeText={senha => setSenha(senha)} value={senha} secureTextEntry={secureTextSenha} theme={theme}  right={<TextInput.Icon onPress={() => setSecureTextSenha(!secureTextSenha)} name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
-                    <TextInput label={Global.lingp ? "Confirmar senha" : "Confirm Password"} onChangeText={(event) => verificaConfirmacaoSenha(event, senha)} secureTextEntry={secureTextConfirm} theme={theme} right={<TextInput.Icon onPress={() => {setSecureTextConfirm(!secureTextConfirm);console.log('oi') }} name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
+                    <TextInput label={Global.lingp ? "Confirmar senha" : "Confirm Password"} onChangeText={(event) => verificaConfirmacaoSenha(event, senha)} secureTextEntry={secureTextConfirm} theme={theme} right={<TextInput.Icon onPress={() => {setSecureTextConfirm(!secureTextConfirm)}} name='eye-off-outline' color={telaCadastro.icon.color}/>}/>
                     {senhaIgual ? <></> : <Text style={{color:'red'}}>{Global.lingp? "*Senhas não conferem" : "*Passwords don't match"}</Text>}
                     <View style={{display: 'flex', flexDirection:'column', width: '100%'}}>
                     </View>

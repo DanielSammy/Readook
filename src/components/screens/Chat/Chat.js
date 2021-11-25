@@ -97,12 +97,11 @@ const Chat = ({route, navigation}) => {
             avatar: chat.user.avatar})
       }
 
-      const handleNewMessage = (newMessage) => {
-        const getMessages = chats
+      const handleNewMessageChat = (newMessage, oldMessages) => {
+        const getMessages = oldMessages
         const chatCodigoReceived = newMessage.chatCodigo
         const chatIndex = getMessages.findIndex(chat => chat._id === chatCodigoReceived)
         const otherMessage = getMessages.splice(chatIndex,1) 
-        console.log(otherMessage)
         const newChat = {};
         newChat._id = newMessage.chatCodigo
         newChat.ultimaMensagem = newMessage.text
@@ -119,13 +118,13 @@ const Chat = ({route, navigation}) => {
       }
 
       useEffect(() => {
-        socket.on('chatMensagem', data => {
+        socket.on('chat', data => {
           if (data.userDest == Global.user.usrCodigo) {
-            handleNewMessage(data.message[0])
+            handleNewMessageChat(data.message[0], chats)
           }
         })
         return () => {
-          socket.off('chatMensagem')}
+          socket.off('chat')}
       },[chats])
     
       useEffect(() => {

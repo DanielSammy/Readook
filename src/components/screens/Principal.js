@@ -14,7 +14,7 @@ import PushNotification from 'react-native-push-notification'
 const Home = () => {
     PushNotification.configure({
         onNotification: function (notification) {
-          console.log("poxa: ", goToChatMensagem(notification))
+          goToChatMensagem(notification)
         },
         onAction: function (notification) {
           console.log("ACTION:", notification.action);
@@ -25,8 +25,6 @@ const Home = () => {
       })
 
       const goToChatMensagem = ({data}) => {
-        const teste = 'boi bravo'
-        console.log(teste, data)
         navigation.navigate('ChatMensagem', {
             chatCodigo: data.chatCodigo,
             codigoDest: data.user._id,
@@ -74,20 +72,15 @@ const Home = () => {
                 if (screenName === "ChatMensagem") {
                     const codigoChatNotificacao = data.chatCodigo
                     const codigoChatAtual = navigation.dangerouslyGetState().routes[index].params.chatCodigo;
-                    console.log(screenName,codigoChatNotificacao,codigoChatAtual,index)
                     if (codigoChatAtual === codigoChatNotificacao) {
-                        console.log("oi?")
                         return ''
                     }
                     else {
-                        console.log(data)
                         handleNotification(data)
                     }
                 }
                 else {
-                    
-                    console.log("entrou aqui", index, screenName)
-                handleNotification(data)
+                    handleNotification(data)
                 }
                 }
               })
