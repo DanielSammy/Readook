@@ -131,10 +131,12 @@ export const addUser = async (name, email, senha, dataNasc, cpf, fone) => {
 
 export const updateUser = async (usrCodigo, nomeCampo, valorCampo) => {
   return new Promise((resolve, reject) => {
-    connection.query(`UPDATE usuario SET ${nomeCampo} = ${valorCampo} WHERE usr_codigo = ${usrCodigo}`, (err, results) => {
+    connection.query(`UPDATE usuario SET ${nomeCampo} = '${valorCampo}' WHERE usr_codigo = ${usrCodigo}`, (err, results) => {
       if (err) {
-        return reject (err)
+        err.returnType = 'Error'
+        return resolve(err)
       }
+      results.returnType = 'Success'
       resolve(results)
     })
   })

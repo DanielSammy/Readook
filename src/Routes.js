@@ -83,11 +83,17 @@ app.post('/user/cadastro', async (req, res) => {
 })
 
 app.post('/user/update', async (req,res) => {
-  const informacaoInsert = req.body[0]
+  const informacaoInsert = req.body
   const usrCodigo = informacaoInsert.usrCodigo
   const nomeCampo = informacaoInsert.nomeCampo
   const valorCampo = informacaoInsert.valorCampo
   const results = await Banco.updateUser(usrCodigo, nomeCampo, valorCampo)
+  if (results.returnType === "Error") {
+    res.header("ErrorMessage", JSON.stringify(results.sqlMessage))
+    res.status(400)
+    .send(JSON.stringify('ERROR: ' + results.sqlMessage))
+    return ''
+  }
   res.send(results)
 })
 
