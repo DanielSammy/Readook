@@ -1,49 +1,71 @@
 import React, { useState, useEffect } from 'react'
-import { TouchableNativeFeedback } from 'react-native';
-import { View, SafeAreaView, ScrollView } from 'react-native'
+import { View, SafeAreaView, ScrollView, TouchableNativeFeedback, BackHandler } from 'react-native'
 import { IconButton, Text } from 'react-native-paper'
-import { ChatContainer, ContainerImage, ImageContainer, TextContainer } from './styles';
+import { ChatContainer, ContainerImage, ImageContainer, TextContainer } from './styles'
 import Global from '../Global'
-import { HeaderBackButton } from '@react-navigation/stack';
-import { theme } from '../../PageStyle';
+import { HeaderBackButton, HeaderTitle } from '@react-navigation/stack';
 import { socket } from '../../../services/socket';
 import ImagemPerfilModal from '../../ImagemPerfilModal/ImagemPerfilModal'
+import { CommonActions } from '@react-navigation/native';
+
+const Chat = ({route, navigation}) => {        
+  const [ dataAtual, setDataAtual ]  = useState('')
+  const [ visible, setVisible] = useState(false)
+  const [ chats, setChats ] = useState([])
+  const [ onLoad, setOnLoad ] = useState(true)
+  const [ showAvatar, setShowAvatar] = useState('')
+  const [ userName, setUserName] = useState('')
 
 
-const Chat = ({route, navigation}) => {
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      title: Global.lingp ? 'Mensagens' : "Messages",
-      headerRight:() => (<View style={{display: 'flex', flexDirection: 'row'}}>
-              <IconButton icon="plus" size={24} color="#FFF" onPress={() => goToChatUsuarios()}/>
-            </View>
+  useEffect(() => {
+    navigation.setOptions(
+      !visible ? { title: Global.lingp ? 'Mensagens' : "Messages",
+      headerTitle: (props) => (<HeaderTitle style={{color:'white', fontSize:20}}>{props.children}</HeaderTitle>),
+      headerRight:() => (
+        <View style={{display: 'flex', flexDirection: 'row'}}>
+          <IconButton icon="plus" size={24} color="#FFF" onPress={() => goToChatUsuarios()}/>
+        </View>
             ),
-          });
-        }, [navigation, Global.lingp])
-        
-        const backAction = () => {
+      headerLeft:() => (
+      <View style={{display: 'flex', flexDirection: 'row'}}>
+        <HeaderBackButton
+          onPress={() => backAction()}
+          title="Info"
+          tintColor="#fff"
+        />
+      </View>
+          ),      
+          } : { title: userName,
+          headerRight:() => (<></>),
+          headerTitle: (props) => (<HeaderTitle style={{color:'white', fontSize:18}}>{props.children}</HeaderTitle>),
+        headerLeft:() => (
+        <View style={{display: 'flex', flexDirection: 'row'}}>
+          <HeaderBackButton
+            onPress={() => setVisible(!visible)}
+            title="Info"
+            tintColor="#fff"
+          />
+        </View>
+      ),});
+  }, [visible,userName])
+
+  const backAction = () => {
         navigation.dispatch(
           CommonActions.reset({
-            index: 1,
+            index: 2,
             routes:[
-              {name: 'Principal'},
-             {name: 'Chat'},
+              {name: 'Login'},
+             {name: 'Principal'},
             ], 
           })
           )
        return true;
       };
       
-      const goToChatUsuarios = () => {
-        navigation.navigate('ChatUsuarios')
-      }
-    const [ dataAtual, setDataAtual ]  = useState('')
-    const [ visible, setVisible] = useState(false)
-    const [ chats, setChats ] = useState([])
-    const [ onLoad, setOnLoad ] = useState(true)
-    const [ showAvatar, setShowAvatar] = useState('')
+    const goToChatUsuarios = () => {
+      navigation.navigate('ChatUsuarios')
+    }
+
     const carregaBatePapo = async (usuario) => {
         await fetch(`http://${Global.ipBancoDados}:${Global.portaBancoDados}/chat/${usuario}`)
         .then(response => response.json())
@@ -146,8 +168,9 @@ const Chat = ({route, navigation}) => {
         }
       },[])
 
-      const chamaModal = (userAvatar) => {
+      const chamaModal = (userAvatar, userName) => {
         setShowAvatar(userAvatar)
+        setUserName(userName)
         setVisible(!visible)
       }
 
@@ -156,7 +179,7 @@ const Chat = ({route, navigation}) => {
           <ScrollView style={{backgroundColor: '#daebeb'}}>
             {chats.map((chat) => (
               <ChatContainer key={chat._id}>
-                <TouchableNativeFeedback data-key={`img${chat._id}`}onPress={() => chamaModal(chat.user.avatar)}>
+                <TouchableNativeFeedback data-key={`img${chat._id}`}onPress={() => chamaModal(chat.user.avatar, chat.user.name)}>
                   <ImageContainer >
                       <ContainerImage source={{uri: chat.user.avatar}}/>
                   </ImageContainer>
@@ -186,7 +209,7 @@ const Chat = ({route, navigation}) => {
               </ChatContainer>
             ))}
           </ScrollView>
-          <ImagemPerfilModal imageUri={showAvatar} visible={visible} onChangeVisible={setVisible} />
+            <ImagemPerfilModal imageUri={showAvatar} visible={visible} onChangeVisible={setVisible} userName={userName} />       
         </SafeAreaView>
     )
 }

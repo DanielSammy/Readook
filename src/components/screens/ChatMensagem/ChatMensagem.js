@@ -9,7 +9,6 @@ import { AvatarImage } from './styles'
 import ImagemPerfilModal from '../../ImagemPerfilModal/ImagemPerfilModal'
 import { TouchableNativeFeedback } from 'react-native'
 import { Provider } from 'react-native-paper'
-import { white } from 'react-native-paper/lib/typescript/styles/colors'
 
 const ChatMensagem = ({navigation, route}) => {
   const chamaModal = (userAvatar) => {
@@ -24,6 +23,7 @@ const ChatMensagem = ({navigation, route}) => {
   const userAvatar = route.params.avatar
   const [ onLoad,setOnLoad ] = useState(true)
   const navegacao = useNavigation();
+
   const puxaUltimasMensagens = async () => {
     await fetch(`http://${Global.ipBancoDados}:${Global.portaBancoDados}/chatMensagens/${codigoChat}`)
     .then(response => response.json())
