@@ -27,6 +27,7 @@ const ChatMensagem = ({navigation, route}) => {
   const atualizaMensagemNaoLidas = async () => {
     const informacaoUpdate = {}
     informacaoUpdate.chatCodigo = codigoChat
+    informacaoUpdate.userDest = Global.user.usrCodigo
     const response = await fetch(`http://${Global.ipBancoDados}:${Global.portaBancoDados}/chatmensagem/update/lida`, {
         method: 'POST',
         headers: {

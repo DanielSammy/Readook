@@ -89,9 +89,9 @@ export const consultaChatMensagens = async (chatCodigo) => {
   })
 }
 
-export const updateNaoLida = async (chatCodigo) => {
+export const updateNaoLida = async (chatCodigo, userDest) => {
   return new Promise((resolve, reject) => {
-    connection.query(`UPDATE chatmensagem set chm_lida = 1 where chm_chacodigo=${chatCodigo}`, (err, results) => {
+    connection.query(`UPDATE chatmensagem set chm_lida = 1 where chm_chacodigo=${chatCodigo} and chm_usrcodigodes = ${userDest}`, (err, results) => {
       if (err){
         return reject(err)
       }

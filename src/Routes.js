@@ -100,7 +100,8 @@ app.post('/user/update', async (req,res) => {
 app.post('/chatmensagem/update/lida', async (req,res) => {
   const informacaoInsert = req.body
   const chatCodigo = informacaoInsert.chatCodigo
-  const results = await Banco.updateNaoLida(chatCodigo)
+  const userDest = informacaoInsert.userDest
+  const results = await Banco.updateNaoLida(chatCodigo, userDest)
   res.send(results)
 })
 
