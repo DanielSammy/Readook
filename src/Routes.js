@@ -97,6 +97,13 @@ app.post('/user/update', async (req,res) => {
   res.send(results)
 })
 
+app.post('/chatmensagem/update/lida', async (req,res) => {
+  const informacaoInsert = req.body
+  const chatCodigo = informacaoInsert.chatCodigo
+  const results = await Banco.updateNaoLida(chatCodigo)
+  res.send(results)
+})
+
 io.on('connection',(socket) => {
   console.log('conectou')
   socket.on('chatMensagem', data => {

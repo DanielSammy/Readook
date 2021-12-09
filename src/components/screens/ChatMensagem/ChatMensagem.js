@@ -24,6 +24,21 @@ const ChatMensagem = ({navigation, route}) => {
   const [ onLoad,setOnLoad ] = useState(true)
   const navegacao = useNavigation();
 
+  const atualizaMensagemNaoLidas = async () => {
+    const informacaoUpdate = {}
+    informacaoUpdate.chatCodigo = codigoChat
+    const response = await fetch(`http://${Global.ipBancoDados}:${Global.portaBancoDados}/chatmensagem/update/lida`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(informacaoUpdate)
+      })
+      .then(response => response.json())
+    return response
+  }
+
   const puxaUltimasMensagens = async () => {
     await fetch(`http://${Global.ipBancoDados}:${Global.portaBancoDados}/chatMensagens/${codigoChat}`)
     .then(response => response.json())
@@ -75,6 +90,7 @@ const ChatMensagem = ({navigation, route}) => {
 
   useEffect(() => {
     if (onLoad) {
+      atualizaMensagemNaoLidas();
       puxaUltimasMensagens();
       setOnLoad(false)
     }   

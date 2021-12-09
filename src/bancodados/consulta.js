@@ -1,6 +1,5 @@
 import mysql from 'mysql'
 import config from './config'
-import fs from 'fs'
 
 export const connection = mysql.createConnection(config.mysql)
 
@@ -90,6 +89,17 @@ export const consultaChatMensagens = async (chatCodigo) => {
   })
 }
 
+export const updateNaoLida = async (chatCodigo) => {
+  return new Promise((resolve, reject) => {
+    connection.query(`UPDATE chatmensagem set chm_lida = 1 where chm_chacodigo=${chatCodigo}`, (err, results) => {
+      if (err){
+        return reject(err)
+      }
+      resolve(results)
+    })
+  })
+}
+
 const converterHoraParaLocal = (data) => {
   const novaData = new Date(data.getTime()+data.getTimezoneOffset()*60*1000)
   const diferenca = data.getTimezoneOffset() / 60
@@ -144,6 +154,7 @@ export const updateUser = async (usrCodigo, nomeCampo, valorCampo) => {
 
 export default {
   addUser,
+  updateNaoLida,
   consultaUsuario,
   consultaChat,
   consultaChatEntreUsuarios,

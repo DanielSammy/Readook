@@ -199,9 +199,11 @@ const Chat = ({route, navigation}) => {
                       <Text style={{fontSize:14, marginRight:'auto'}}>
                           {`  ${chat.ultimaMensagem}`}
                       </Text>
+                      {chat.naoLidas != '0' ? 
                       <Text style={{fontSize:12,padding:2,paddingLeft:0, color:'#ffffff', backgroundColor:'#002244', borderRadius:3, textAlign:'center', height:25}}>
-                          {`${chat.naoLidas} ${Global.lingp? "Não Lidas" : "Unseen"}`}
+                          {`${chat.naoLidas} ${Global.lingp? "Não Lidas" : "Unseen"}` }
                       </Text>
+                      : <></>}
                       </View>
                     </View>
                   </TextContainer>
