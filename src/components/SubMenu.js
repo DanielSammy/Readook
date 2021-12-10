@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Animated, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Avatar, Card, IconButton, Portal, Modal,TextInput, Provider, Button, Text} from 'react-native-paper';
@@ -74,6 +74,15 @@ export default function FabButon (props) {
         
 const [ livro, setLivros ] = useState([])
 
+const newBook =   useCallback( async () => {
+    const newLivros = {}
+    newLivros.nome = nome
+    newLivros.autor = autor
+    newLivros.objetivo = objetivo
+    newLivros.email_contato = Global.user.usrEmail
+    setLivros([...livro, newLivros])})
+
+
 useEffect(() => {
     if (onLoad) {
         axios.get('https://meuservidordetrabalho.herokuapp.com/base')
@@ -84,6 +93,8 @@ useEffect(() => {
           .catch(function (error) {
             console.log(error)
           }) //Fim do Axios
+
+
         setOnLoad(false)
     }
     return () => {
@@ -95,11 +106,16 @@ useEffect(() => {
 
 
     const [visible, setVisible] = useState(false);
+    const [ resume, setResume] = useState(false);
   
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
     const containerStyle = {backgroundColor: 'white', padding: 100, borderRadius: 10 };
+    const showResume = () => setResume(true);
+    const hideResume = () => setResume(false);
+    const resumeStyle = {backgroundColor: 'white', padding: 100, borderRadius: 10, margin: 15 };
     // Fim do Modal
+    
 
     const [autor, setAutor] = useState(undefined)
     const [nome, setNome ] = useState(undefined)
@@ -130,11 +146,8 @@ useEffect(() => {
             objetivo:objetivo
             
         })
-        .then(function (response) {
-        })
-        .catch(function (error) {
-        });
     }  //Fim do Post
+
 
         return (
             <React.Fragment>
@@ -147,7 +160,9 @@ useEffect(() => {
                         title= {e.nome}
                         subtitle= {e.autor} 
                         left={(props) => <Avatar.Icon theme={card} size={45} icon="book-open-page-variant"/>}
-                        right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {}} />}/>
+                        right={(props) => <IconButton {...props} icon="currency-eth" onPress={() => {
+                            showResume()
+                        }} />}/>
                         )
                     })   
                 }
@@ -182,11 +197,23 @@ useEffect(() => {
                     <TextInput Value="" key='1' onChangeText={(a)=> {setarNome (a)}} label={Global.lingp ? "Nome do Livro" : "Book Name"} theme={theme}/>
                     <TextInput Value="" key='2' onChangeText={(a)=> {setarAutor (a)}} label={Global.lingp ? "Autor do Livro" : "Book Author"} theme={theme}/>
                     <TextInput Value="" key='4' onChangeText={(a)=> {setarObj (a)}}label={Global.lingp ? "Objetivo" : "For"} theme={theme}/>
-          <Button onPress={cadastrar} mode="contained" style={telaCadastro.button} theme={theme}>{Global.lingp ? "Cadastar" : "Insert"}</Button>
+          <Button onPress={() => {
+              cadastrar()
+              hideModal()
+              newBook()
+          }} mode="contained" style={telaCadastro.button} theme={theme}>{Global.lingp ? "Cadastar" : "Insert"}</Button>
           </Modal>
           </Portal>
           
             </Provider> 
+            <Provider>
+            <Portal>
+
+          <Modal visible={resume} onDismiss={hideResume} contentContainerStyle={resumeStyle}>
+          <Text style={{fontSize: 20, textAlign: 'center'}}>{Global.lingp ? 'Tela para informações do Resumo do livro' : 'Book Summary Information Screen'}</Text>
+        </Modal>
+            </Portal>
+            </Provider>
             
             
     
